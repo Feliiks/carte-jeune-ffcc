@@ -1,5 +1,5 @@
 .container {
-  height: 650px; width: 370px;
+  height: 450px; width: 370px;
 
   position: absolute;
   margin: auto;
@@ -13,7 +13,7 @@
 }
 
 .form {
-  height: 496px; width: 257px;
+  height: 300px; width: 257px;
 
   display: flex;
   flex-direction: column;
@@ -45,7 +45,7 @@ section {
   font-size: 20px;
 }
 
-.cj-form {
+.form-content {
   height: 100%; width: 100%;
 
   display: flex;
