@@ -1,0 +1,18 @@
+.container {
+  width: 500px; height: 250px;
+
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  margin: auto;
+
+  background: #00548F;
+}
+
+.photo {
+  height: 150px; width: 125px;
+
+  margin: 1rem;
+  top: 0; left: 0;
+
+  background: #fff;
+}

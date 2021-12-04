@@ -1,5 +1,5 @@
 .container {
-  height: 650px; width: 370px;
+  height: 750px; width: 375px;
 
   position: absolute;
   margin: auto;
@@ -13,7 +13,7 @@
 }
 
 .form {
-  height: 496px; width: 257px;
+  height: 600px; width: 300px;
 
   display: flex;
   flex-direction: column;
@@ -51,6 +51,10 @@ section {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
+}
+
+label {
+  margin-top: 10px;
 }
 
 input {
