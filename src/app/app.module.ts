@@ -8,6 +8,7 @@ import { LoginComponent } from './components/login/login.component';
 import { CarteJeuneComponent } from './components/carte-jeune/carte-jeune.component';
 import { LayoutComponent } from './components/layout/layout.component';
 import { CarteJeuneNumeriqueComponent } from './components/carte-jeune-numerique/carte-jeune-numerique.component';
+import {FormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { CarteJeuneNumeriqueComponent } from './components/carte-jeune-numerique
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

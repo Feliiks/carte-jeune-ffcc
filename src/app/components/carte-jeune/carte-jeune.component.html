@@ -1,35 +1,32 @@
 <div class="container">
-  <img src="../../assets/logoFFCC.png" alt="logo" />
+  <div class="logo"></div>
   <div class="form">
     <header>
       <h2>Créer sa carte jeune</h2>
     </header>
     <section>
-      <form class="form-content">
-        <label for="name">Nom</label>
-        <input type="text" id="name" name="name" />
+      <form class="form-content" (ngSubmit)="onSubmit(f)" #f="ngForm">
+        <span>Nom: Doe</span>
 
-        <label for="surname">Prénom</label>
-        <input type="text" id="surname" name="surname" />
+        <span>Prénom: John</span>
 
-        <label for="email">Adresse mail</label>
-        <input type="text" id="email" name="email" />
+        <span>E-mail: john.doe@gmail.com</span>
+
+        <span>Date de naissance: 01/06/1987</span>
 
         <label for="telephone">Téléphone</label>
-        <input type="text" id="telephone" name="telephone" />
+        <input type="text" id="telephone" name="telephone" ngModel>
 
         <label for="city">Ville</label>
-        <input type="password" id="city" name="city" />
-
-        <label for="birthdate">Date de naissance</label>
-        <input type="date" id="birthdate" name="birthdate" />
+        <input type="text" id="city" name="city" ngModel>
 
         <label for="photo">Photo</label>
-        <input type="file" id="photo" name="photo" />
+        <input type="file" id="photo" name="photo" ngModel>
+
+        <div class="form-footer">
+          <button class="submit" type="submit">Valider</button>
+        </div>
       </form>
     </section>
-    <footer>
-      <button class="submit">Suivant</button>
-    </footer>
   </div>
 </div>

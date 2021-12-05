@@ -1,32 +1,33 @@
 <div class="container">
-  <img src="../../assets/logoFFCC.png" alt="logo" />
+  <div class="logo"></div>
   <div class="form">
     <header>
       <h2>Inscription</h2>
     </header>
     <section>
-      <form class="form-content">
+      <form class="form-content" (ngSubmit)="onSubmit(f)" #f="ngForm">
         <label for="name">Nom</label>
-        <input type="text" id="name" name="name" />
+        <input type="text" id="name" name="name" ngModel>
 
         <label for="surname">Prénom</label>
-        <input type="text" id="surname" name="surname" />
+        <input type="text" id="surname" name="surname" ngModel>
 
         <label for="email">Adresse mail</label>
-        <input type="text" id="email" name="email" />
+        <input type="text" id="email" name="email" ngModel>
 
         <label for="password">Mot de passe</label>
-        <input type="password" id="password" name="password" />
+        <input type="password" id="password" name="password" ngModel>
 
-        <label for="repeat-password">Répéter le mot de passe</label>
-        <input type="password" id="repeat-password" name="repeat-password" />
+        <label for="scdPassword">Répéter le mot de passe</label>
+        <input type="password" id="scdPassword" name="scdPassword" ngModel>
 
         <label for="birthdate">Date de naissance</label>
-        <input type="date" id="birthdate" name="birthdate" />
+        <input type="date" id="birthdate" name="birthdate" ngModel>
+
+        <div class="form-footer">
+          <button class="submit" type="submit">Valider</button>
+        </div>
       </form>
     </section>
-    <footer>
-      <button class="submit">Suivant</button>
-    </footer>
   </div>
 </div>
