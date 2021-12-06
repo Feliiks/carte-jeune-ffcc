@@ -1,33 +1,95 @@
 <div class="container">
-  <div class="logo"></div>
-  <div class="form">
-    <header>
-      <h2>Inscription</h2>
-    </header>
-    <section>
-      <form class="form-content" (ngSubmit)="onSubmit(f)" #f="ngForm">
-        <label for="name">Nom</label>
-        <input type="text" id="name" name="name" ngModel>
-
-        <label for="surname">Prénom</label>
-        <input type="text" id="surname" name="surname" ngModel>
-
-        <label for="email">Adresse mail</label>
-        <input type="text" id="email" name="email" ngModel>
-
-        <label for="password">Mot de passe</label>
-        <input type="password" id="password" name="password" ngModel>
-
-        <label for="scdPassword">Répéter le mot de passe</label>
-        <input type="password" id="scdPassword" name="scdPassword" ngModel>
-
-        <label for="birthdate">Date de naissance</label>
-        <input type="date" id="birthdate" name="birthdate" ngModel>
-
-        <div class="form-footer">
-          <button class="submit" type="submit">Valider</button>
-        </div>
-      </form>
-    </section>
+  <div class="logo">
+    <div class="logo-inner"></div>
   </div>
+
+  <div class="header-content mt-2 mb-2">
+    <p>
+      Bienvenue sur le site de la F.F.C.C<br>
+      Pour vous inscrire sur le site, merci de bien vouloir renseigner l'ensemble des champs ci-dessous.
+    </p>
+  </div>
+
+  <form [formGroup]="registerForm" class="form-content" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <input
+        type="text" id="firstname" class="form-control" formControlName="firstname"
+        [ngClass]="{ 'is-invalid': submitted && f.firstname.errors }"
+        placeholder="Prénom"
+      />
+      <div *ngIf="submitted && f.firstName.errors" class="invalid-feedback">
+        <div *ngIf="f.firstName.errors.required">Champ requis</div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <input
+        type="text" id="lastname" class="form-control" formControlName="lastname"
+        [ngClass]="{ 'is-invalid': submitted && f.lastname.errors }"
+        placeholder="Nom"
+      />
+      <div *ngIf="submitted && f.lastname.errors" class="invalid-feedback">
+        <div *ngIf="f.lastname.errors.required">Champ requis</div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <input
+        type="text" id="email" class="form-control" formControlName="email"
+        [ngClass]="{ 'is-invalid': submitted && f.email.errors }"
+        placeholder="Adresse mail"
+      />
+      <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+        <div *ngIf="f.email.errors.required">Champ requis</div>
+        <div *ngIf="f.email.errors.email">Adresse mail invalide</div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <input
+        type="text" id="confirmEmail" class="form-control" formControlName="confirmEmail"
+        [ngClass]="{ 'is-invalid': submitted && f.confirmEmail.errors }"
+        placeholder="Répéter adresse mail"
+      />
+      <div *ngIf="submitted && f.confirmEmail.errors" class="invalid-feedback">
+        <div *ngIf="f.confirmEmail.errors.required">Champ requis</div>
+        <div *ngIf="f.confirmEmail.errors.mustMatch">Les mots de passe ne correspondent pas</div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <input
+        type="password" id="password" class="form-control" formControlName="password"
+        ng-minlength="8" [ngClass]="{ 'is-invalid': submitted && f.password.errors }"
+        placeholder="Mot de passe"
+      />
+      <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+        <div *ngIf="f.password.errors.required">Champ requis</div>
+        <div *ngIf="f.password.errors.minlength">Mot de passe pas assez sécurisé</div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <input
+        type="password" id="confirmPassword" class="form-control" formControlName="confirmPassword"
+        [ngClass]="{ 'is-invalid': submitted && f.confirmPassword.errors }"
+        placeholder="Répéter mot de passe"
+      />
+      <div *ngIf="submitted && f.confirmPassword.errors" class="invalid-feedback">
+        <div *ngIf="f.confirmPassword.errors.required">Champ requis</div>
+        <div *ngIf="f.confirmPassword.errors.mustMatch">Les mots de passe ne correspondent pas</div>
+      </div>
+    </div>
+
+    <div class="form-group form-check">
+      <input type="checkbox" class="form-control" formControlName="acceptTerms" id="acceptTerms" class="form-check-input" [ngClass]="{ 'is-invalid': submitted && f.acceptTerms.errors }" />
+      <label for="acceptTerms" class="form-check-label">J'accepte les CGU</label>
+      <div *ngIf="submitted && f.acceptTerms.errors" class="invalid-feedback">Vous devez accepter les CGU</div>
+    </div>
+
+    <div class="form-footer">
+      <button class="btn btn-danger" type="reset" (click)="onReset()">Annuler</button>
+      <button class="btn btn-success" type="submit">Créer le compte</button>
+    </div>
+  </form>
 </div>
