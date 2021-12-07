@@ -15,10 +15,10 @@
       <input
         type="text" id="firstname" class="form-control" formControlName="firstname"
         [ngClass]="{ 'is-invalid': submitted && f.firstname.errors }"
-        placeholder="Prénom"
+        placeholder="Prénom" autocomplete="on"
       />
-      <div *ngIf="submitted && f.firstName.errors" class="invalid-feedback">
-        <div *ngIf="f.firstName.errors.required">Champ requis</div>
+      <div *ngIf="submitted && f.firstname.errors" class="invalid-feedback">
+        <div *ngIf="f.firstname.errors.required">Champ requis</div>
       </div>
     </div>
 
@@ -26,7 +26,7 @@
       <input
         type="text" id="lastname" class="form-control" formControlName="lastname"
         [ngClass]="{ 'is-invalid': submitted && f.lastname.errors }"
-        placeholder="Nom"
+        placeholder="Nom" autocomplete="on"
       />
       <div *ngIf="submitted && f.lastname.errors" class="invalid-feedback">
         <div *ngIf="f.lastname.errors.required">Champ requis</div>
@@ -37,11 +37,11 @@
       <input
         type="text" id="email" class="form-control" formControlName="email"
         [ngClass]="{ 'is-invalid': submitted && f.email.errors }"
-        placeholder="Adresse mail"
+        placeholder="Adresse mail" autocomplete="email"
       />
       <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
         <div *ngIf="f.email.errors.required">Champ requis</div>
-        <div *ngIf="f.email.errors.email">Adresse mail invalide</div>
+        <div *ngIf="f.email.errors.pattern">Adresse mail invalide</div>
       </div>
     </div>
 
@@ -49,11 +49,11 @@
       <input
         type="text" id="confirmEmail" class="form-control" formControlName="confirmEmail"
         [ngClass]="{ 'is-invalid': submitted && f.confirmEmail.errors }"
-        placeholder="Répéter adresse mail"
+        placeholder="Répéter adresse mail" autocomplete="new-mail"
       />
       <div *ngIf="submitted && f.confirmEmail.errors" class="invalid-feedback">
         <div *ngIf="f.confirmEmail.errors.required">Champ requis</div>
-        <div *ngIf="f.confirmEmail.errors.mustMatch">Les mots de passe ne correspondent pas</div>
+        <div *ngIf="f.confirmEmail.errors.emailMatching">Les emails ne correspondent pas</div>
       </div>
     </div>
 
@@ -61,11 +61,11 @@
       <input
         type="password" id="password" class="form-control" formControlName="password"
         ng-minlength="8" [ngClass]="{ 'is-invalid': submitted && f.password.errors }"
-        placeholder="Mot de passe"
+        placeholder="Mot de passe" autocomplete="off"
       />
       <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
         <div *ngIf="f.password.errors.required">Champ requis</div>
-        <div *ngIf="f.password.errors.minlength">Mot de passe pas assez sécurisé</div>
+        <div *ngIf="f.password.errors.pattern">Mot de passe pas assez sécurisé</div>
       </div>
     </div>
 
@@ -73,11 +73,11 @@
       <input
         type="password" id="confirmPassword" class="form-control" formControlName="confirmPassword"
         [ngClass]="{ 'is-invalid': submitted && f.confirmPassword.errors }"
-        placeholder="Répéter mot de passe"
+        placeholder="Répéter mot de passe" autocomplete="off"
       />
       <div *ngIf="submitted && f.confirmPassword.errors" class="invalid-feedback">
         <div *ngIf="f.confirmPassword.errors.required">Champ requis</div>
-        <div *ngIf="f.confirmPassword.errors.mustMatch">Les mots de passe ne correspondent pas</div>
+        <div *ngIf="f.confirmPassword.errors.matching">Les mots de passe ne correspondent pas</div>
       </div>
     </div>
 

@@ -49,6 +49,14 @@ label[for='acceptTerms'] {
   font-weight: normal;
 }
 
+.is-invalid {
+  border: 1px solid red;
+}
+
+.invalid-feedback {
+  color: red;
+}
+
 .form-footer {
   display: flex;
   justify-content: space-around;

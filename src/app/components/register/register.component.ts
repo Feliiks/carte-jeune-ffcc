@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, FormControl, Validators } from "@angular/forms";
+import {FormBuilder, FormGroup, FormControl, Validators, Form} from "@angular/forms";
+import Axios from 'axios';
 
-import { MustMatch } from '../../helpers/must-match.validator';
+import Validation from '../../helpers/validator';
 
 @Component({
   selector: 'app-register',
@@ -18,11 +19,11 @@ export class RegisterComponent implements OnInit {
     this.registerForm = new FormGroup({
       firstname: new FormControl('', [
         Validators.required,
-        Validators.minLength(4)
+        Validators.minLength(3),
       ]),
       lastname: new FormControl('', [
         Validators.required,
-        Validators.minLength(4)
+        Validators.minLength(3)
       ]),
       email: new FormControl('', [
         Validators.required,
@@ -33,7 +34,6 @@ export class RegisterComponent implements OnInit {
       ]),
       password: new FormControl('', [
         Validators.required,
-        Validators.minLength(8),
         Validators.pattern('(?=^.{8,}$)(?=.*\\d)(?=.*[!@#$%^&*]+)(?![.\\n])(?=.*[A-Z])(?=.*[a-z]).*$')
       ]),
       confirmPassword: new FormControl('', [
@@ -42,20 +42,21 @@ export class RegisterComponent implements OnInit {
       acceptTerms: new FormControl(false, [
         Validators.requiredTrue
       ]),
-    });
+    }, {
+      validators: [
+        Validation.emailMatch('email', 'confirmEmail'),
+        Validation.passwordsMatch('password', 'confirmPassword')
+      ]
+    })
   }
 
-  private passwordsShouldMatch = () => {
-    return
-  }
-
-  get f() { return this.registerForm.controls; }
+  public get f() { return this.registerForm.controls; }
 
   onSubmit() {
     this.submitted = true;
 
     if (this.registerForm.invalid) {
-      console.log('invalide');
+      console.error('Tout les champs ne sont pas correctement renseignés.');
     } else {
       console.log(this.registerForm.value);
     }
