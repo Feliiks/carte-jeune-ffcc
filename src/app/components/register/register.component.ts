@@ -52,13 +52,26 @@ export class RegisterComponent implements OnInit {
 
   public get f() { return this.registerForm.controls; }
 
-  onSubmit() {
+  onSubmit = async () => {
     this.submitted = true;
 
-    if (this.registerForm.invalid) {
-      console.error('Tout les champs ne sont pas correctement renseignés.');
-    } else {
-      console.log(this.registerForm.value);
+    let { firstname, lastname, email, password } = this.f;
+
+    if (!this.registerForm.invalid) {
+      try {
+        let result = await Axios.post("http://localhost:3009/api/v1/test", {
+          firstname: firstname.value,
+          lastname: lastname.value,
+          email: email.value,
+          password: password.value
+        });
+
+        // Renvoyer vers la landing page
+        console.log(result.data);
+
+      } catch (err) {
+        console.error(err);
+      }
     }
   }
 
