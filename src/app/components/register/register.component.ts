@@ -59,7 +59,7 @@ export class RegisterComponent implements OnInit {
 
     if (!this.registerForm.invalid) {
       try {
-        let result = await Axios.post("http://localhost:3009/api/v1/test", {
+        let result = await Axios.post("http://localhost:3009/api/v1/users", {
           firstname: firstname.value,
           lastname: lastname.value,
           email: email.value,
@@ -70,7 +70,7 @@ export class RegisterComponent implements OnInit {
         console.log(result.data);
 
       } catch (err) {
-        console.error(err);
+        console.error(err.message);
       }
     }
   }

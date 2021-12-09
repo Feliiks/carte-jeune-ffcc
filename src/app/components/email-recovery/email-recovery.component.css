@@ -43,6 +43,10 @@
   font-weight: bold;
 }
 
+.form-group {
+  margin-top: 2rem;
+}
+
 label[for='acceptTerms'] {
   margin-left: 10px;
 

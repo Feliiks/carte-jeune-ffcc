@@ -9,6 +9,8 @@ import { CarteJeuneComponent } from './components/carte-jeune/carte-jeune.compon
 import { LayoutComponent } from './components/layout/layout.component';
 import { CarteJeuneNumeriqueComponent } from './components/carte-jeune-numerique/carte-jeune-numerique.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import { EmailRecoveryComponent } from './components/email-recovery/email-recovery.component';
+import { PasswordRecoveryComponent } from './components/password-recovery/password-recovery.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +19,9 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
     LoginComponent,
     CarteJeuneComponent,
     LayoutComponent,
-    CarteJeuneNumeriqueComponent
+    CarteJeuneNumeriqueComponent,
+    EmailRecoveryComponent,
+    PasswordRecoveryComponent
   ],
     imports: [
         BrowserModule,

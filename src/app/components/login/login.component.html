@@ -1,21 +1,47 @@
 <div class="container">
-  <div class="logo"></div>
-  <div class="form">
-    <header>
-      <h2>Connexion</h2>
-    </header>
-    <section>
-      <form class="form-content" (ngSubmit)="onSubmit(f)" #f="ngForm">
-        <label for="email">Adresse mail</label>
-        <input type="text" id="email" name="email" ngModel>
-
-        <label for="password">Mot de passe</label>
-        <input type="password" id="password" name="password" ngModel>
-
-        <div class="form-footer">
-          <button class="submit" type="submit">Valider</button>
-        </div>
-      </form>
-    </section>
+  <div class="logo">
+    <div class="logo-inner"></div>
   </div>
+
+  <div class="header-content mt-2 mb-2">
+    <p>
+      Si vous êtes déjà inscrit(e) sur le site de la F.F.C.C, saisissez vos identifiants afin de vous connecter.
+    </p>
+  </div>
+
+  <form [formGroup]="loginForm" class="form-content" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <input
+        type="text" id="email" class="form-control" formControlName="email"
+        [ngClass]="{ 'is-invalid': submitted && f.email.errors }"
+        placeholder="Adresse mail" autocomplete="email"
+      />
+      <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+        <div *ngIf="f.email.errors.required">Champ requis</div>
+        <div *ngIf="f.email.errors.pattern">Adresse mail invalide</div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <input
+        type="password" id="password" class="form-control" formControlName="password"
+        ng-minlength="8" [ngClass]="{ 'is-invalid': submitted && f.password.errors }"
+        placeholder="Mot de passe" autocomplete="off"
+      />
+      <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+        <div *ngIf="f.password.errors.required">Champ requis</div>
+        <div *ngIf="f.password.errors.pattern">Mot de passe pas assez sécurisé</div>
+      </div>
+    </div>
+
+    <span><a href="/emailrecovery">Identifiant oublié ?</a></span>
+    <br>
+    <span><a href="/passwordrecovery">Mot de passe oublié ?</a></span>
+
+    <div class="form-footer">
+      <button class="btn btn-danger" type="reset" (click)="onReset()">Annuler</button>
+      <button class="btn btn-success" type="submit">Se connecter</button>
+    </div>
+  </form>
+
 </div>
