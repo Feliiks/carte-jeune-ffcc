@@ -55,20 +55,23 @@ export class RegisterComponent implements OnInit {
   onSubmit = async () => {
     this.submitted = true;
 
-    let { firstname, lastname, email, password } = this.f;
+    let email = this.f.email.value;
+    let password = this.f.password.value;
+
+    let body = {
+      email,
+      password
+    };
 
     if (!this.registerForm.invalid) {
       try {
-        let result = await Axios.post("http://localhost:3009/api/v1/users", {
-          firstname: firstname.value,
-          lastname: lastname.value,
-          email: email.value,
-          password: password.value
-        });
+        let result = await Axios.post("http://localhost:3009/api/v1/users", body);
 
-        // Renvoyer vers la landing page
-        console.log(result.data);
+        if (result.status === 201) {
+          console.log(result);
 
+          // -> redirect sur la landing page
+        }
       } catch (err) {
         console.error(err.message);
       }
