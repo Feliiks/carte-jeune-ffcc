@@ -17,8 +17,9 @@
         placeholder="Adresse mail" autocomplete="email"
       />
       <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
-        <div *ngIf="f.email.errors.required">Champ requis</div>
-        <div *ngIf="f.email.errors.pattern">Adresse mail invalide</div>
+        <div *ngIf="f.email.errors.required">Champ requis.</div>
+        <div *ngIf="f.email.errors.pattern">Adresse email invalide</div>
+        <div *ngIf="f.email.errors.accessDenied">Email ou mot de passe incorrect.</div>
       </div>
     </div>
 
@@ -29,8 +30,8 @@
         placeholder="Mot de passe" autocomplete="off"
       />
       <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
-        <div *ngIf="f.password.errors.required">Champ requis</div>
-        <div *ngIf="f.password.errors.pattern">Mot de passe pas assez sécurisé</div>
+        <div *ngIf="f.password.errors.required">Champ requis.</div>
+        <div *ngIf="f.password.errors.pattern">Mot de passe pas assez sécurisé.</div>
       </div>
     </div>
 

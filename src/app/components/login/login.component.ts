@@ -35,13 +35,18 @@ export class LoginComponent implements OnInit {
 
     if (!this.loginForm.invalid) {
       try {
-        let result = await Axios.post("http://localhost:3009/api/v1/users/authenticate", {
+        let result = await Axios.post("http://localhost:3009/login", {
           email: email.value,
           password: password.value
         });
 
-        // Renvoyer vers la landing page
-        console.log(result.data);
+        if (result.data.accessDenied === false) {
+          window.location.href = '/login-success';
+
+        } else {
+          this.f.email.setErrors({ accessDenied: true });
+          this.f.password.setErrors({ accessDenied: true });
+        }
 
       } catch (err) {
         console.error(err.message);

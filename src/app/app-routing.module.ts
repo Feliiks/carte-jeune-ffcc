@@ -6,9 +6,11 @@ import {CarteJeuneComponent} from "./components/carte-jeune/carte-jeune.componen
 import {CarteJeuneNumeriqueComponent} from "./components/carte-jeune-numerique/carte-jeune-numerique.component";
 import {EmailRecoveryComponent} from "./components/email-recovery/email-recovery.component";
 import {PasswordRecoveryComponent} from "./components/password-recovery/password-recovery.component";
+import {RegisterSuccessComponent} from "./components/register-success/register-success.component";
 
 const routes: Routes = [
   {path: 'register', component: RegisterComponent},
+  {path: 'register-success', component: RegisterSuccessComponent},
   {path: 'login', component: LoginComponent},
   {path: 'emailrecovery', component: EmailRecoveryComponent},
   {path: 'passwordrecovery', component: PasswordRecoveryComponent},

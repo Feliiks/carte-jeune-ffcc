@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, FormControl, Validators, Form} from "@angular/forms";
 import Axios from 'axios';
+import { Router } from '@angular/router';
 
 import Validation from '../../helpers/validator';
 
@@ -55,25 +56,32 @@ export class RegisterComponent implements OnInit {
   onSubmit = async () => {
     this.submitted = true;
 
+    let firstname = this.f.firstname.value;
+    let lastname = this.f.lastname.value;
     let email = this.f.email.value;
     let password = this.f.password.value;
 
     let body = {
+      firstname,
+      lastname,
       email,
       password
     };
 
     if (!this.registerForm.invalid) {
       try {
-        let result = await Axios.post("http://localhost:3009/api/v1/users", body);
+        let result = await Axios.post("http://localhost:3009/register", body);
 
         if (result.status === 201) {
-          console.log(result);
+          window.location.href = '/register-success';
 
-          // -> redirect sur la landing page
+        } else if (result.data.alreadyExists) {
+          this.f.email.setErrors({ alreadyExists: true });
+          this.f.confirmEmail.setErrors({ alreadyExists: true });
         }
+
       } catch (err) {
-        console.error(err.message);
+        console.error('Erreur : ' + err.message);
       }
     }
   }

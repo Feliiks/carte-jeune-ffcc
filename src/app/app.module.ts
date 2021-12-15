@@ -8,9 +8,10 @@ import { LoginComponent } from './components/login/login.component';
 import { CarteJeuneComponent } from './components/carte-jeune/carte-jeune.component';
 import { LayoutComponent } from './components/layout/layout.component';
 import { CarteJeuneNumeriqueComponent } from './components/carte-jeune-numerique/carte-jeune-numerique.component';
-import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { EmailRecoveryComponent } from './components/email-recovery/email-recovery.component';
 import { PasswordRecoveryComponent } from './components/password-recovery/password-recovery.component';
+import { RegisterSuccessComponent } from './components/register-success/register-success.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { PasswordRecoveryComponent } from './components/password-recovery/passwo
     LayoutComponent,
     CarteJeuneNumeriqueComponent,
     EmailRecoveryComponent,
-    PasswordRecoveryComponent
+    PasswordRecoveryComponent,
+    RegisterSuccessComponent
   ],
     imports: [
         BrowserModule,
