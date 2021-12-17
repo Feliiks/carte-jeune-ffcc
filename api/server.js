@@ -30,7 +30,7 @@ const PORT = process.env.PORT || 3009;
 const app = express();
 
 app.listen(PORT, () => {
-  console.log(`Le serveur est lancé sur le port ${PORT} en dev mode.`);
+  console.log(`L'api est lancé sur le port ${PORT} en dev mode.`);
 });
 
 app.use(
@@ -97,31 +97,6 @@ app.post('/register', async (req, res) => {
   }
 });
 
-
-app.post('/login', async (req, res) => {
-  let { email, password } = req.body;
-
-  try {
-    let findUser = await prisma.users.findMany({
-      where: {
-        email: email
-      }
-    });
-
-    let hash = sha256(password);
-    let finalHash = Base64.stringify(hash);
-
-    if (!findUser[0] || findUser[0].password !== finalHash) {
-      res.send({ accessDenied: true });
-    } else {
-      res.send({ accessDenied: false });
-    }
-  } catch (err) {
-    res.sendStatus(401);
-    console.error(err);
-  }
-});
-
 app.post('/account/emailverification', async (req, res) => {
   let { email } = req.body;
 
@@ -161,7 +136,7 @@ app.post('/account/accountconfirmation', async (req, res) => {
     const user = await prisma.users.findMany({
       where: {
         email: check.email,
-        isEmailVerified: false,
+        is_email_verified: false,
         email_token: token
       }
     });
@@ -173,7 +148,7 @@ app.post('/account/accountconfirmation', async (req, res) => {
         id: user[0].id
       },
       data: {
-        isEmailVerified: true,
+        is_email_verified: true,
         email_token: null
       }
     });
@@ -183,5 +158,29 @@ app.post('/account/accountconfirmation', async (req, res) => {
   } catch (error) {
     res.sendStatus(403);
     console.error(error)
+  }
+});
+
+app.post('/login', async (req, res) => {
+  let { email, password } = req.body;
+
+  try {
+    let findUser = await prisma.users.findMany({
+      where: {
+        email: email
+      }
+    });
+
+    let hash = sha256(password);
+    let finalHash = Base64.stringify(hash);
+
+    if (!findUser[0] || findUser[0].password !== finalHash) {
+      res.send({ accessDenied: true });
+    } else {
+      res.send({ accessDenied: false });
+    }
+  } catch (err) {
+    res.sendStatus(401);
+    console.error(err);
   }
 });
