@@ -14,7 +14,10 @@ export class RegisterComponent implements OnInit {
   registerForm: FormGroup;
   submitted = false;
 
-  constructor(private formBuilder: FormBuilder) { }
+  constructor(
+    private formBuilder: FormBuilder,
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
     this.registerForm = new FormGroup({
@@ -73,7 +76,7 @@ export class RegisterComponent implements OnInit {
         let result = await Axios.post("http://localhost:3009/register", body);
 
         if (result.status === 201) {
-          window.location.href = '/register-success';
+          this.router.navigate(['/account/emailverification/', email]);
 
         } else if (result.data.alreadyExists) {
           this.f.email.setErrors({ alreadyExists: true });

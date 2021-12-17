@@ -8,9 +8,11 @@ datasource db {
 }
 
 model users {
-  id        Int    @id @default(autoincrement())
-  firstname String @db.VarChar(50)
-  lastname  String @db.VarChar(50)
-  email     String @db.VarChar(100)
-  password  String @db.VarChar(100)
+  id                Int     @id @default(autoincrement())
+  firstname         String  @db.VarChar(50)
+  lastname          String  @db.VarChar(50)
+  email             String  @db.VarChar(100)
+  password          String  @db.VarChar(100)
+  is_email_verified Int     @default(0) @db.TinyInt
+  email_token       String? @db.VarChar(255)
 }

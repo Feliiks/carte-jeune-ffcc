@@ -11,7 +11,8 @@ import { CarteJeuneNumeriqueComponent } from './components/carte-jeune-numerique
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { EmailRecoveryComponent } from './components/email-recovery/email-recovery.component';
 import { PasswordRecoveryComponent } from './components/password-recovery/password-recovery.component';
-import { RegisterSuccessComponent } from './components/register-success/register-success.component';
+import { RegistrationsuccessfulComponent } from './components/accountconfirmation/registrationsuccessful.component';
+import { EmailverificationComponent } from './components/emailverification/emailverification.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { RegisterSuccessComponent } from './components/register-success/register
     CarteJeuneNumeriqueComponent,
     EmailRecoveryComponent,
     PasswordRecoveryComponent,
-    RegisterSuccessComponent
+    RegistrationsuccessfulComponent,
+    EmailverificationComponent,
   ],
     imports: [
         BrowserModule,
