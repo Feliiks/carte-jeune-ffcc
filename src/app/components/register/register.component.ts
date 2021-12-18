@@ -73,18 +73,16 @@ export class RegisterComponent implements OnInit {
 
     if (!this.registerForm.invalid) {
       try {
-        let result = await Axios.post("http://localhost:3009/register", body);
+        let res = await Axios.post("http://localhost:3009/register", body);
 
-        if (result.status === 201) {
+        if (res.status === 201) {
           this.router.navigate(['/account/emailverification/', email]);
-
-        } else if (result.data.alreadyExists) {
-          this.f.email.setErrors({ alreadyExists: true });
-          this.f.confirmEmail.setErrors({ alreadyExists: true });
         }
 
       } catch (err) {
-        console.error('Erreur : ' + err.message);
+        this.f.email.setErrors({ alreadyExists: true });
+        this.f.confirmEmail.setErrors({ alreadyExists: true });
+        console.error(err.message);
       }
     }
   }

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
+import Axios from "axios";
 
 @Component({
   selector: 'app-password-recovery',
@@ -29,9 +30,19 @@ export class PasswordRecoveryComponent implements OnInit {
     let { email } = this.f;
 
     if (!this.passwordRecoveryForm.invalid) {
-      // récupération du mot de passe
+      try {
+        let res = await Axios.post('http://localhost:3009/passwordrecovery', {
+          email: email.value
+        });
 
-      console.log(email.value);
+        if (res.status === 200) {
+          console.log(res.status);
+        }
+      } catch (err) {
+        this.f.email.setErrors({ accessDenied: true });
+        console.error(err.message);
+      }
+
     }
   }
 

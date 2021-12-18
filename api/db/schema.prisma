@@ -15,4 +15,5 @@ model users {
   password          String  @db.VarChar(100)
   is_email_verified Boolean @default(false)
   email_token       String? @db.VarChar(255)
+  password_token    String? @db.VarChar(255)
 }

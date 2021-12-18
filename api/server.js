@@ -54,45 +54,43 @@ app.post('/register', async (req, res) => {
       }
     });
 
-    if (!findUser[0]) {
-      let hash = sha256(password);
-      let finalHash = Base64.stringify(hash);
-      let emailToken = jwt.sign(
-        {
-          email: email
-        },
-        process.env.TOKEN_KEY
-      );
+    if (findUser[0]) throw new Error;
 
-      await prisma.users.create({
-        data: {
-          firstname: firstname,
-          lastname: lastname,
-          email: email,
-          password: finalHash,
-          email_token: emailToken
-        }
-      });
+    let hash = sha256(password);
+    let finalHash = Base64.stringify(hash);
 
-      await transporter.sendMail(
-        {
-          from: "account@ffcc.fr",
-          to: email,
-          subject: "Confirmation de votre compte FFCC",
-          html: `
-          Bonjour ${firstname},<br><br>
-          Confirmez votre compte sur le site de la FFCC en cliquant <a href='http://localhost:4200/account-confirmation/${emailToken}' target='_blank'>sur ce lien</a>.
-        `
-        }
-      );
+    let emailToken = jwt.sign(
+      {
+        email: email
+      },
+      process.env.TOKEN_KEY
+    );
 
-      res.sendStatus(201);
+    await prisma.users.create({
+      data: {
+        firstname: firstname,
+        lastname: lastname,
+        email: email,
+        password: finalHash,
+        email_token: emailToken
+      }
+    });
 
-    } else {
-      res.send({ alreadyExists: true });
-    }
+    await transporter.sendMail(
+      {
+        from: "account@ffcc.fr",
+        to: email,
+        subject: "Confirmation de votre compte FFCC",
+        html: `
+        Bonjour ${firstname},<br><br>
+        Confirmez votre compte sur le site de la FFCC en cliquant <a href='http://localhost:4200/account-confirmation/${emailToken}' target='_blank'>sur ce lien</a>.
+      `
+      }
+    );
+
+    res.sendStatus(201);
   } catch (err) {
-    res.sendStatus(401);
+    res.sendStatus(403);
     console.error(err);
   }
 });
@@ -106,6 +104,8 @@ app.post('/account/emailverification', async (req, res) => {
         email: email
       }
     });
+
+    if (!user[0]) throw new Error;
 
     await transporter.sendMail(
       {
@@ -171,14 +171,62 @@ app.post('/login', async (req, res) => {
       }
     });
 
-    let hash = sha256(password);
-    let finalHash = Base64.stringify(hash);
+    if (!findUser[0]) throw new Error;
 
-    if (!findUser[0] || findUser[0].password !== finalHash) {
-      res.send({ accessDenied: true });
-    } else {
-      res.send({ accessDenied: false });
-    }
+    let hash = Base64.stringify(sha256(password));
+
+    if (findUser[0].password !== hash) throw new Error;
+
+    res.sendStatus(200);
+
+  } catch (err) {
+    res.sendStatus(401);
+    console.error(err);
+  }
+});
+
+app.post('/passwordrecovery', async (req, res) => {
+  let { email } = req.body;
+
+  try {
+    let user = await prisma.users.findMany({
+      where: {
+        email: email,
+        is_email_verified: true
+      }
+    });
+
+    if (!user[0]) throw new Error;
+
+    let passwordToken = jwt.sign(
+      {
+        email: email
+      },
+      process.env.TOKEN_KEY
+    );
+
+    await prisma.users.update({
+      where: {
+        id: user[0].id
+      },
+      data: {
+        password_token: passwordToken
+      }
+    })
+
+    await transporter.sendMail(
+      {
+        from: "account@ffcc.fr",
+        to: email,
+        subject: "Reinitialisation de votre mot de passe FFCC",
+        html: `
+          Bonjour ${user[0].firstname},<br><br>
+          Pour reinitialiser votre mot de passe, merci de suivre <a href='http://localhost:4200/account/passwordrecovery/newpassword/${passwordToken}' target='_blank'>ce lien</a>.
+        `
+      }
+    );
+
+    res.sendStatus(200);
   } catch (err) {
     res.sendStatus(401);
     console.error(err);
