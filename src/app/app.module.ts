@@ -13,6 +13,7 @@ import { PasswordRecoveryComponent } from './components/password-recovery/passwo
 import { EmailverificationComponent } from './components/emailverification/emailverification.component';
 import { AccountconfirmationComponent } from './components/accountconfirmation/accountconfirmation.component';
 import {UsernameRecoveryComponent} from "./components/username-recovery/username-recovery.component";
+import { NewpasswordComponent } from './components/newpassword/newpassword.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import {UsernameRecoveryComponent} from "./components/username-recovery/username
     PasswordRecoveryComponent,
     EmailverificationComponent,
     AccountconfirmationComponent,
+    NewpasswordComponent,
   ],
     imports: [
         BrowserModule,

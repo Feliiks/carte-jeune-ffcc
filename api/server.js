@@ -232,3 +232,56 @@ app.post('/passwordrecovery', async (req, res) => {
     console.error(err);
   }
 });
+
+app.post('/account/passwordrecovery/jwtverify', async (req, res) => {
+  let { token } = req.body;
+
+  try {
+    let check = jwt.verify(token, process.env.TOKEN_KEY);
+
+    let user = await prisma.users.findMany({
+      where: {
+        email: check.email,
+        password_token: token
+      }
+    });
+
+    if (!user[0]) throw new Error;
+
+    res.sendStatus(200);
+  } catch (err) {
+    res.sendStatus(401);
+    console.error(err);
+  }
+});
+
+app.post('/account/passwordrecovery/newpassword', async (req, res) => {
+  let { password, passwordToken } = req.body;
+
+  try {
+    let user = await prisma.users.findMany({
+      where: {
+        password_token: passwordToken
+      }
+    });
+
+    let hash = sha256(password);
+    let finalHash = Base64.stringify(hash);
+
+    await prisma.users.update({
+      where: {
+        id: user[0].id
+      },
+      data: {
+        password: finalHash,
+        password_token: null
+      }
+    });
+
+    res.sendStatus(200);
+
+  } catch (err) {
+    res.sendStatus(401);
+    console.error(err);
+  }
+});
