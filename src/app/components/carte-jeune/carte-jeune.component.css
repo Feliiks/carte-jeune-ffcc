@@ -1,101 +1,102 @@
-.container {
-  height: 750px; width: 375px;
-
-  position: absolute;
-  margin: auto;
-  top: 0; left: 0; right: 0; bottom: 0;
+.imgFFCC {
+  max-width: 100%;
+}
+.h1 {
   display: flex;
-  flex-direction: column;
-  align-items: center;
   justify-content: center;
-
-  background: #00548F;
-}
-
-.logo {
-  width: 175px; height: 100px;
-
-  margin-bottom: 10px;
-
-  background: url("../../../assets/logoFFCC.png");
-  background-size: contain;
-  background-position: center;
-  background-repeat: no-repeat;
-}
-
-.form {
-  height: 600px; width: 300px;
-
-  display: flex;
-  flex-direction: column;
-
-  background: #fff;
-  border-radius: 22px;
-  overflow: hidden;
-}
-
-header {
-  height: 15%; width: 100%;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-
-  background: #F7F7F7;
-  color: #000;
-}
-
-section {
-  height: 85%; width: 100%;
-
-  position: relative;
   padding: 20px;
-
-  color: #000;
-  font-size: 20px;
+  padding-top: 30px;
+  padding-bottom: 30px;
 }
-
-.form-content {
-  height: 100%; width: 100%;
-
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-}
-
-label {
-  margin-top: 10px;
-}
-
-input {
-  height: 27px;
-
-  border: none;
-  background: #C4C4C4;
-}
-
-input:focus {
-  outline: none;
-}
-
-.form-footer {
-  width: 100%;
-
-  margin-top: 3rem;
-
-  display: flex;
+.body_wrapper {
   align-items: center;
-  justify-content: center;
-  position: relative;
+  display: flex;
+  padding: 20px;
+  padding-top: 30px;
+  padding-bottom: 30px;
+}
+.body_inner_left_holder {
+  padding-right: 30px;
+  padding-top: 10px;
+}
+.body_inner_left {
+  width: 100%;
+  border-radius: 50%;
+}
+.body_inner_right {
+  display: flex;
+  width: 66.666%;
+  justify-content: flex-start;
+  float: right;
+}
+/*l'autre partie qui doit etre supprimé*/
+.pics_in_a_row {
+  display: flex;
 }
 
-button {
-  height: 36px; width: 207px;
+.img1 {
+  flex: 1.3344;
+}
+.img2 {
+  flex: 1.3345;
+}
+.img3 {
+  flex: 0.7505;
+}
+.img4 {
+  flex: 1.5023;
+}
+.img5 {
+  flex: 0.75;
+}
 
-  border: none;
-  background: #00548F;
-  cursor: pointer;
-  color: white;
-  font-size: 20px;
+.container1 {
+  margin: 0 auto;
+  padding: 5%;
+  width: 75%;
+}
+
+/* h1 {
+    margin-top: 0;
+  }
+
+  h2 {
+    font-weight: normal;
+    font-size: 19px;
+    margin-bottom: 30px;
+  } */
+
+.muted {
+  font-style: italic;
+  color: #666;
+}
+
+p,
+li {
+  line-height: 1.5;
+}
+
+li {
+  margin-bottom: 7px;
+}
+
+p + p {
+  margin-top: -7px;
+}
+
+code {
+  background: #eee;
+  padding: 2px 5px;
+  font-size: 90%;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin: 0 2px;
+}
+
+.pics_in_a_row {
+  margin: 25px 0;
+}
+
+.pics_in_a_row > div:not(:last-child) {
+  margin-right: 2%;
 }

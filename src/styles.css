@@ -1,5 +1,4 @@
 /* You can add global styles to this file, and also import other style files */
-/* You can add global styles to this file, and also import other style files */
 * {
   margin: 0;
   padding: 0;
@@ -15,11 +14,11 @@ a {
 }
 
 img {
-  max-width: 12%;
+  max-width: 15%;
 }
 
 :root {
-  --font-family: "Open Sans", sans-serif;
+  --font-family: "Josefin Sans", sans-serif;
   --primary: #ffffff;
   --secondary: #00548f;
   --accent: #ee1c25;
@@ -27,8 +26,9 @@ img {
   --text-regular: #444;
 }
 body {
-  font-family: var("Open Sans", sans-serif);
+  font-family: var("Josefin Sans", sans-serif);
   color: var(--text-regular);
+  /* background-image: url(./assets/Raseteur.jpg); */
 }
 
 /*util */

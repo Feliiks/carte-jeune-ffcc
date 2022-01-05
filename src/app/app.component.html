@@ -1,2 +1,222 @@
 <app-layout></app-layout>
 <router-outlet></router-outlet>
+<header class="header flex-row flex-justify-content-between flex-align-items-center">
+  <div class="user"><img class="img" src="./assets/login.png" alt="image trophée des licences"></div>
+  <nav>
+    <!-- <img src="./assets/logoFFCC.png" alt=" logo"> -->
+    <ul class="main-navigation ul">
+      <img src="./assets/logoFFCC.png" alt=" logo">
+      <div class="icons">
+        <img src="./assets/trophee.png" alt="image trophée des licences">
+        <img src="./assets/icon1.png" alt="image trophée des licences">
+      </div>
+      <!-- <a routerLink="/Authentification"><img src="./assets/login.png" alt="image trophée des licences"></a> -->
+      <li class="ul"><a class="ul" routerLink="/Accueil">Accueil</a></li>
+      <li class="ul"><a class="ul" routerLink="/Champions">Nos Champions</a>
+        <ul class="ul">
+          <li><a class="ul" href="#">Tous les classements</a></li>
+          <li><a class="ul" href="#">Les cocardiers</a>
+            <ul>
+              <li><a class="ul" href="#">Cocardier</a></li>
+            </ul>
+          <li><a class="ul" href="#">Les Les AS</a>
+            <ul>
+              <li><a class="ul" href="#">Raseteurs</a></li>
+              <li><a class="ul" href="#">Classements</a></li>
+            </ul>
+          <li><a class="ul" href="#">Avenir</a>
+            <ul>
+              <li><a class="ul" href="#">Raseteurs</a></li>
+              <li><a class="ul" href="#">Classements</a></li>
+            </ul>
+          <li><a class="ul" href="#">XXXXX</a>
+            <ul>
+              <li><a class="ul" href="#">Raseteurs</a></li>
+              <li><a class="ul" href="#">Classements</a></li>
+            </ul>
+          </li>
+        </ul>
+        <!--Un autre sous-sous menus !-->
+      <li class="li"><a class="ul" routerLink="/Formations">Nos formations</a>
+        <ul>
+          <li class="li"><a class="ul" href="#">Les écoles</a>
+            <ul>
+              <li class="li"><a class="ul" href="#">Annuaire des écoles</a></li>
+            </ul>
+          <li class="li"><a class="ul" href="#">Les Les AS</a>
+            <ul>
+              <li class="li"><a class="ul" href="#">Raseteurs</a></li>
+              <li class="li"><a class="ul" href="#">Classements</a></li>
+            </ul>
+          <li><a class="ul" href="#">Avenir</a>
+            <ul>
+              <li class="li"><a class="ul" href="#">Raseteurs</a></li>
+              <li class="li"><a class="ul" href="#">Classements</a></li>
+            </ul>
+          <li><a class="ul" href="#">XXXXX</a>
+            <ul>
+              <li class="li"><a class="ul" href="#">Raseteurs</a></li>
+              <li class="li"><a class="ul" href="#">Classements</a></li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <!--À partir de là pour la suite-->
+      <li><a routerLink="Federations">Notre fédérations</a>
+        <ul>
+          <li><a href="#">Histoire de la Course Camarguaise</a>
+          <li><a href="#">Status et règlements</a>
+            <ul>
+              <li><a href="#">Les Status</a></li>
+              <li><a href="#">Le règlement</a></li>
+            </ul>
+          <li><a href="#">Le bureau</a>
+          <li><a href="#">Les comités départementaux</a>
+            <ul>
+              <li><a href="#">Le comité/nom</a></li>
+            </ul>
+          <li><a href="#">Les commissions</a>
+            <ul>
+              <li><a href="#">La commissions</a></li>
+            </ul>
+          <li><a href="#">Le congrès</a>
+            <ul>
+              <li><a href="#">Le congrès</a></li>
+            </ul>
+          <li><a href="#">La charte éthique de fonctionnement</a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+    <!--La suite-->
+    <nav>
+      <ul class="main-navigation">
+        <li><a routerLink="Tenus_Blanches">Les tenus blanches</a>
+          <ul>
+            <li><a href="#">Les raseteurs</a>
+            <li><a href="#">Les tourneurs</a>
+            <li><a href="#">Les catégories</a>
+            <li><a href="#">Les classements</a>
+            <li><a href="#">Les trophées</a>
+            <li><a href="#">Les écoles</a>
+              <ul>
+                <li><a href="#">Annuaire des écoles</a></li>
+              </ul>
+            <li><a href="#">Les anciens</a>
+            </li>
+          </ul>
+        </li>
+        <!--La suite-->
+        <li><a routerLink="Taureau_Manade">Taureaux et manadiers</a>
+          <ul>
+            <li><a href="#">Le taureau de camargue</a>
+            <li><a href="#">Le cocardier</a>
+              <ul>
+                <li><a href="#">Corcardier</a></li>
+              </ul>
+
+            <li><a href="#">Les manades</a>
+              <ul>
+                <li><a href="#">Manade/nom</a></li>
+              </ul>
+            <li><a href="#">Les spectacles de rue</a>
+              <ul>
+                <li><a href="#">L'abrivado</a></li>
+                <li><a href="#">La bandido</a></li>
+                <li><a href="#">L'encierro</a></li>
+                <li><a href="#">La gazo</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <!--La suite du ménu-->
+        <li><a routerLink="Clubs">Clubs taurins et agrèments</a>
+          <ul>
+            <li><a href="#">Les clubs taurins</a>
+              <ul>
+                <li><a href="#">Club taurin/nom</a></li>
+              </ul>
+            <li><a href="#">Les agrèments</a>
+              <ul>
+                <li><a href="#">Agrément/nom</a></li>
+              </ul>
+          </ul>
+        </li>
+        <!--La suite-->
+        <li><a routerLink="Culture_Agrements">Culture et patrimoine</a>
+          <ul>
+            <li><a href="#">Le costume</a>
+              <ul>
+                <li><a href="#">Le gardian</a></li>
+                <li><a href="#">L'arlésienne</a></li>
+                <li><a href="#">Le costume provencal</a></li>
+              </ul>
+            <li><a href="#">La musique</a>
+              <ul>
+                <li><a href="#">Les tambourinaires</a></li>
+
+              </ul>
+            <li><a href="#">La langue</a>
+              <ul>
+                <li><a href="#">Frédéric Mistral</a></li>
+                <li><a href="#">Le félibrige</a></li>
+                <li><a href="#">Petit dictionnaire</a></li>
+              </ul>
+            <li><a href="#">La gastronomie</a>
+              <ul>
+                <li><a href="#">Le riz de camargue</a></li>
+                <li><a href="#">La daube</a></li>
+              </ul>
+            <li><a href="#">Les arts</a>
+              <ul>
+                <li><a href="#">La photo</a></li>
+                <li><a href="#">La peinture</a></li>
+              </ul>
+            <li><a href="#">Les associations</a>
+              <ul>
+                <li><a href="#">L'étoile de l'avenir</a>
+                <li><a href="#">Lou riban de Prouvenco</a></li>
+              </ul>
+            <li><a href="#">Les évènements</a>
+              <ul>
+                <li><a href="#">Le 1° Mai</a>
+                <li><a href="#">La fete du costume</a></li>
+                <li><a href="#">L'hommage à fanfonne</a></li>
+                <li><a href="#">Les 100 taureaux</a></li>
+              </ul>
+            <li><a href="#">Les cérémonies</a>
+              <ul>
+                <li><a href="#">L'élection de la reine d'Arles</a>
+                <li><a href="#">La pèlerinage à Lourdes</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+      </ul>
+      <!--La suite ici-->
+      <!-- </li> -->
+      <!-- </li> -->
+      <!-- </ul> -->
+      <!-- </ul> -->
+      <!-- </li> -->
+      <!-- </ul> -->
+    </nav>
+    <nav class="navbar">
+      <ul>
+        <li><a href="#">Calendrier</a></li>
+        <li><a href="#">Les nouvelles</a></li>
+        <li><a href="#">Les cocardiers</a></li>
+        <li><a href="#">Les raseteurs aux as</a></li>
+      </ul>
+    </nav>
+
+    <main>
+      <router-outlet></router-outlet>
+    </main>
+
+    <footer class="footer">
+      <div class="b-footer">
+        <p>
+          Fédération Francaise de Course Camarguaise 2022</p>
+      </div>
+    </footer>
