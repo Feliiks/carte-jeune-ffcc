@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormGroup, FormControl, Validators, Form} from "@angular/forms";
+import {FormBuilder, FormGroup, FormControl, Validators} from "@angular/forms";
 import Axios from 'axios';
 import { Router } from '@angular/router';
 
@@ -64,7 +64,7 @@ export class RegisterComponent implements OnInit {
     let email = this.f.email.value;
     let password = this.f.password.value;
 
-    let body = {
+    let user = {
       firstname,
       lastname,
       email,
@@ -73,7 +73,7 @@ export class RegisterComponent implements OnInit {
 
     if (!this.registerForm.invalid) {
       try {
-        let res = await Axios.post("http://localhost:3009/register", body);
+        let res = await Axios.post("http://localhost:3009/register", user);
 
         if (res.status === 201) {
           this.router.navigate(['/account/emailverification/', email]);

@@ -1,3 +1,18 @@
-<h2>Merci de confirmer votre adresse mail avec le lien qui vous a été envoyé à l'adresse renseignée.</h2>
-<p>Vous n'avez pas reçu le mail de confirmation ? <span (click)="sendNewMail()">Cliquez-ici</span> pour en recevoir un nouveau.</p>
-<p *ngIf="display">Mail envoyé !</p>
+<div class="container">
+  <div class="logo">
+    <div class="logo-inner"></div>
+  </div>
+  <div class="content mt-2 mb-2">
+    Un mail vient de vous être envoyé pour la confirmation de votre inscription.
+    <br><br>
+    Consultez votre boite mail, cliquez sur le lien associé pour permettre la validation de votre compte.
+    <br><br>
+    Vous pourrez alors revenir sur le site de la FFCC pour vous connecter avec votre mail et le mot de passe que vous venez de créer pour ce site.
+    <br><br>
+    Nous sommes impatients de vous compter parmi les abonnés du site de la FFCC.
+    <br><br>
+    A tout de suite.
+  </div>
+  <button *ngIf="!display" (click)="sendNewMail()" class="btn btn-secondary">Renvoyer l'email</button>
+  <button *ngIf="display" class="btn btn-success">Mail envoyé !</button>
+</div>

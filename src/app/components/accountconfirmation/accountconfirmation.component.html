@@ -1,2 +1,31 @@
-<h2 *ngIf="valid">Votre compte est désormais validé !</h2>
-<h2 *ngIf="!valid">Erreur: compte déjà vérifié ou lien invalide.</h2>
+<div class="container">
+  <div class="logo">
+    <div class="logo-inner"></div>
+  </div>
+  <div *ngIf="valid" class="content mt-2 mb-2">
+      Votre inscription a bien été enregistrée.
+      <br><br>
+      Nous vous remercions pour la confiance que vous nous accordez et pour l’intérêt que vous portez à la course camarguaise.
+      <br><br>
+      Vous disposez d’un accès à votre profil pour vous permettre de modifier certaines de vos informations personnelles.
+      <br><br>
+      Vous trouverez un formulaire de contact sur le site pour nous joindre et nous laisser vos remarques et questions.
+      <br><br>
+      Cliquez sur OK pour continuer votre visite sur le site de la F.F.C.C.
+  </div>
+  <div *ngIf="!valid" class="content mt-2 mb-2">
+    <p>
+      Nous avons rencontré un problème lors de l’enregistrement de votre compte.
+      <br><br>
+      Merci de bien vouloir essayer ultérieurement ou nous laisser un message par mail à l’adresse suivante:
+      <br><br>
+      Nos équipes pourront examiner le problème rencontré et vous proposer une solution adaptée.
+      <br><br>
+      Nous vous remercions pour la confiance que vous nous accordez et l’intérêt que vous portez à la course camarguaise.
+      <br><br>
+      Avec toutes nos excuses pour ce désagrément.
+
+    </p>
+  </div>
+  <button class="btn btn-success">OK</button>
+</div>

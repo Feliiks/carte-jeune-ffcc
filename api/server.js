@@ -83,7 +83,7 @@ app.post('/register', async (req, res) => {
         subject: "Confirmation de votre compte FFCC",
         html: `
         Bonjour ${firstname},<br><br>
-        Confirmez votre compte sur le site de la FFCC en cliquant <a href='http://localhost:4200/account-confirmation/${emailToken}' target='_blank'>sur ce lien</a>.
+        Confirmez votre compte sur le site de la FFCC en cliquant <a href='http://localhost:4200/account/accountconfirmation/${emailToken}' target='_blank'>sur ce lien</a>.
       `
       }
     );
