@@ -44,6 +44,7 @@ app.use(express.json());
 
 // ROUTES ______________________________________________________________
 
+// REGISTER ___________________________________________________________
 app.post('/register', async (req, res) => {
   let { firstname, lastname, email, password } = req.body;
 
@@ -161,6 +162,8 @@ app.post('/account/accountconfirmation', async (req, res) => {
   }
 });
 
+// LOGIN ________________________________________________________
+
 app.post('/login', async (req, res) => {
   let { email, password } = req.body;
 
@@ -184,6 +187,8 @@ app.post('/login', async (req, res) => {
     console.error(err);
   }
 });
+
+// PASSWORD RECOVERY _____________________________________________________________
 
 app.post('/passwordrecovery', async (req, res) => {
   let { email } = req.body;
@@ -233,7 +238,39 @@ app.post('/passwordrecovery', async (req, res) => {
   }
 });
 
-app.post('/account/passwordrecovery/jwtverify', async (req, res) => {
+app.post('/account/password/sendNewMail', async (req, res) => {
+  let { email } = req.body;
+
+  try {
+    const user = await prisma.users.findMany({
+      where: {
+        email: email
+      }
+    });
+
+    if (!user[0]) throw new Error;
+
+    await transporter.sendMail(
+      {
+        from: "account@ffcc.fr",
+        to: email,
+        subject: "Reinitialisation de votre mot de passe FFCC",
+        html: `
+          Bonjour ${user[0].firstname},<br><br>
+          Pour reinitialiser votre mot de passe, merci de suivre <a href='http://localhost:4200/account/passwordrecovery/newpassword/${user[0].password_token}' target='_blank'>ce lien</a>.
+        `
+      }
+    );
+
+    res.sendStatus(200);
+
+  } catch (error) {
+    res.sendStatus(400);
+    console.error(error);
+  }
+});
+
+app.post('/account/password/jwtverify', async (req, res) => {
   let { token } = req.body;
 
   try {
@@ -255,7 +292,7 @@ app.post('/account/passwordrecovery/jwtverify', async (req, res) => {
   }
 });
 
-app.post('/account/passwordrecovery/newpassword', async (req, res) => {
+app.post('/account/password/getNewPassword', async (req, res) => {
   let { password, passwordToken } = req.body;
 
   try {

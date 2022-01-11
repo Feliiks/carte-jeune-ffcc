@@ -40,7 +40,7 @@ export class LoginComponent implements OnInit {
           password: password.value
         });
 
-        if (res.status === 200) window.location.href = '/login-success';
+        if (res.status === 200) console.log('connexion ok');
 
       } catch (err) {
         this.f.email.setErrors({ accessDenied: true });

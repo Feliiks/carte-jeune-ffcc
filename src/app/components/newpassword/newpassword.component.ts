@@ -14,6 +14,7 @@ export class NewpasswordComponent implements OnInit {
   newPasswordForm: FormGroup;
   submitted = false;
   valid: boolean;
+  edited: boolean;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -35,8 +36,7 @@ export class NewpasswordComponent implements OnInit {
       ]
     });
 
-
-    let res = await Axios.post('http://localhost:3009/account/passwordrecovery/jwtverify', {
+    let res = await Axios.post('http://localhost:3009/account/password/jwtverify', {
       token: this.route.snapshot.paramMap.get('token')
     })
 
@@ -53,12 +53,12 @@ export class NewpasswordComponent implements OnInit {
     let { password } = this.f;
 
     if (!this.newPasswordForm.invalid) {
-      let res = await Axios.post('http://localhost:3009/account/passwordrecovery/newpassword', {
+      let res = await Axios.post('http://localhost:3009/account/password/getNewPassword', {
         passwordToken: this.route.snapshot.paramMap.get('token'),
         password: password.value
       });
 
-      if (res.status === 200) console.log('tout est ok');
+      if (res.status === 200) this.edited = true;
     }
   }
 

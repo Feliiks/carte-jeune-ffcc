@@ -9,6 +9,7 @@ import {EmailverificationComponent} from "./components/emailverification/emailve
 import {AccountconfirmationComponent} from "./components/accountconfirmation/accountconfirmation.component";
 import {UsernameRecoveryComponent} from "./components/username-recovery/username-recovery.component";
 import {NewpasswordComponent} from "./components/newpassword/newpassword.component";
+import {PasswordEmailverifyComponent} from "./components/password-emailverify/password-emailverify.component";
 
 const routes: Routes = [
   {path: 'register', component: RegisterComponent},
@@ -17,6 +18,7 @@ const routes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'usernamerecovery', component: UsernameRecoveryComponent},
   {path: 'passwordrecovery', component: PasswordRecoveryComponent},
+  {path: 'account/password/emailverify/:email', component: PasswordEmailverifyComponent},
   {path: 'account/passwordrecovery/newpassword/:token', component: NewpasswordComponent},
   {path: 'carte-jeune', component: CarteJeuneComponent},
   {path: 'carte-jeune-numerique', component: CarteJeuneNumeriqueComponent}

@@ -14,6 +14,7 @@ import { EmailverificationComponent } from './components/emailverification/email
 import { AccountconfirmationComponent } from './components/accountconfirmation/accountconfirmation.component';
 import {UsernameRecoveryComponent} from "./components/username-recovery/username-recovery.component";
 import { NewpasswordComponent } from './components/newpassword/newpassword.component';
+import { PasswordEmailverifyComponent } from './components/password-emailverify/password-emailverify.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { NewpasswordComponent } from './components/newpassword/newpassword.compo
     EmailverificationComponent,
     AccountconfirmationComponent,
     NewpasswordComponent,
+    PasswordEmailverifyComponent,
   ],
     imports: [
         BrowserModule,

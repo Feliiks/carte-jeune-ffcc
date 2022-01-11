@@ -3,10 +3,12 @@
 
   position: relative;
   top: 0; bottom: 0; left: 0; right: 0;
-  margin: 0 auto;
+  margin: 20px auto;
   display: flex;
   flex-direction: column;
   justify-content: center;
+
+  font-size: 16px;
 }
 
 .logo {
@@ -41,6 +43,7 @@
 
   border: 2px solid lightgray;
   font-weight: bold;
+  font-size: 16px;
 }
 
 label[for='acceptTerms'] {
@@ -55,6 +58,7 @@ label[for='acceptTerms'] {
 
 .invalid-feedback {
   color: red;
+  font-size: 13px;
 }
 
 .form-footer {

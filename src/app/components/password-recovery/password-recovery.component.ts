@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import Axios from "axios";
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-password-recovery',
@@ -11,7 +12,10 @@ export class PasswordRecoveryComponent implements OnInit {
   passwordRecoveryForm: FormGroup;
   submitted = false;
 
-  constructor(private formBuilder: FormBuilder) { }
+  constructor (
+    private formBuilder: FormBuilder,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.passwordRecoveryForm = new FormGroup({
@@ -36,7 +40,7 @@ export class PasswordRecoveryComponent implements OnInit {
         });
 
         if (res.status === 200) {
-          console.log(res.status);
+          this.router.navigate(['/account/password/emailverify/', email.value]);
         }
       } catch (err) {
         this.f.email.setErrors({ accessDenied: true });
