@@ -31,7 +31,8 @@ export class GetMyCardComponent implements OnInit {
       ]),
       fileSource: new FormControl('', [
         Validators.required
-      ])
+      ]),
+      student: new FormControl(false)
     })
   }
 
@@ -54,11 +55,13 @@ export class GetMyCardComponent implements OnInit {
     let tel = this.f.tel.value;
     let birthdate = this.f.birthdate.value;
     let documents = this.f.fileSource.value;
+    let student = this.f.student.value;
 
     let user = {
       tel,
       birthdate,
-      documents
+      documents,
+      student
     };
 
     if (!this.getMyCardForm.invalid) {
