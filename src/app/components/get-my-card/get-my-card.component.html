@@ -2,7 +2,6 @@
   <div class='title'>
     <h1>DEMANDER MA CARTE JEUNE</h1>
   </div>
-  <app-layout></app-layout>
   <div class="container">
     <div class="logo">
       <div class="logo-inner"></div>
@@ -54,12 +53,25 @@
       </div>
 
       <div class="form-group">
-        <label for="documents">Documents</label>
+        <label for="photo">Photo</label>
         <input
-          type="file" id="documents" class="form-control" formControlName="documents"
+          type="file" id="photo" class="form-control" formControlName="photo"
           (change)="onFileChange($event)"
           [ngClass]="{ 'is-invalid': submitted && f.documents.errors }"
           placeholder="Documents" autocomplete="off"
+        />
+        <div *ngIf="submitted && f.documents.errors" class="invalid-feedback">
+          <div *ngIf="f.documents.errors.required">Champ requis.</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="id-card">Carte d'identité</label>
+        <input
+          type="file" id="id-card" class="form-control" formControlName="id-card"
+          (change)="onFileChange($event)"
+          [ngClass]="{ 'is-invalid': submitted && f.documents.errors }"
+          placeholder="id-card" autocomplete="off"
         />
         <div *ngIf="submitted && f.documents.errors" class="invalid-feedback">
           <div *ngIf="f.documents.errors.required">Champ requis.</div>
@@ -72,6 +84,19 @@
           [ngClass]="{ 'is-invalid': submitted && f.student.errors }"
         />
         <label for="student" class="form-check-label">Je suis étudiant</label>
+      </div>
+
+      <div class="form-group">
+        <label for="scolarity-doc">Certificat de scolarité</label>
+        <input
+          type="file" id="scolarity-doc" class="form-control" formControlName="scolarity-doc"
+          (change)="onFileChange($event)"
+          [ngClass]="{ 'is-invalid': submitted && f.documents.errors }"
+          placeholder="Documents" autocomplete="off"
+        />
+        <div *ngIf="submitted && f.documents.errors" class="invalid-feedback">
+          <div *ngIf="f.documents.errors.required">Champ requis.</div>
+        </div>
       </div>
 
       <div class="form-footer">

@@ -5,8 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { RegisterComponent } from './components/register/register.component';
 import { LoginComponent } from './components/login/login.component';
-import { CarteJeuneComponent } from './components/carte-jeune/carte-jeune.component';
-import { LayoutComponent } from './components/layout/layout.component';
+import { HomeComponent } from './components/home/home.component';
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { PasswordRecoveryComponent } from './components/password-recovery/password-recovery.component';
 import { EmailverificationComponent } from './components/emailverification/emailverification.component';
@@ -22,8 +21,7 @@ import { EditMyCardComponent } from './components/edit-my-card/edit-my-card.comp
     AppComponent,
     RegisterComponent,
     LoginComponent,
-    CarteJeuneComponent,
-    LayoutComponent,
+    HomeComponent,
     UsernameRecoveryComponent,
     PasswordRecoveryComponent,
     EmailverificationComponent,

@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import {RegisterComponent} from "./components/register/register.component";
 import {LoginComponent} from "./components/login/login.component";
-import {CarteJeuneComponent} from "./components/carte-jeune/carte-jeune.component";
+import {HomeComponent} from "./components/home/home.component";
 import {PasswordRecoveryComponent} from "./components/password-recovery/password-recovery.component";
 import {EmailverificationComponent} from "./components/emailverification/emailverification.component";
 import {AccountconfirmationComponent} from "./components/accountconfirmation/accountconfirmation.component";
@@ -13,7 +13,7 @@ import { GetMyCardComponent } from './components/get-my-card/get-my-card.compone
 import { EditMyCardComponent } from './components/edit-my-card/edit-my-card.component';
 
 const routes: Routes = [
-  {path: '', component: CarteJeuneComponent},
+  {path: '', component: HomeComponent},
 
   {path: 'register', component: RegisterComponent},
   {path: 'account/emailverification/:email', component: EmailverificationComponent},

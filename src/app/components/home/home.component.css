@@ -1,5 +1,5 @@
 .content-container {
-  height: auto; width: 80%;
+  height: auto; width: 100%;
 
   padding: 10px;
 
@@ -21,18 +21,4 @@
 
 h1 {
   margin: 0; padding: 0;
-}
-
-.navbar {
-  width: 100%; height: 30px;
-
-  margin-bottom: 5px;
-  position: relative;
-}
-
-.navbar button {
-  margin-right: 5px;
-
-  color: white;
-  background-color: #7b57f5;
 }
