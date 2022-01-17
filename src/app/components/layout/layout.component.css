@@ -1,6 +1,13 @@
-li {
-  font-weight: bold;
-  font-size: 20px;
-  margin: 10px;
-  display: inline;
+.navbar {
+  width: 100%; height: 30px;
+
+  margin-bottom: 5px;
+  position: relative;
+}
+
+.navbar button {
+  margin-right: 5px;
+
+  color: white;
+  background-color: #7b57f5;
 }

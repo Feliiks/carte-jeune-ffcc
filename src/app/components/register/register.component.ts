@@ -8,8 +8,9 @@ import Validation from '../../helpers/validator';
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
-  styleUrls: ['./register.component.css']
+  styleUrls: ['./register.component.css'],
 })
+
 export class RegisterComponent implements OnInit {
   registerForm: FormGroup;
   submitted = false;

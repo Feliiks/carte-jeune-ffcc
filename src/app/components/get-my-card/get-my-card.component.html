@@ -1,0 +1,90 @@
+<div class='content-container'>
+  <div class='title'>
+    <h1>DEMANDER MA CARTE JEUNE</h1>
+  </div>
+  <app-layout></app-layout>
+  <div class="container">
+    <div class="logo">
+      <div class="logo-inner"></div>
+    </div>
+
+    <div class="header-content mt-2 mb-2">
+      <p>
+        Si vous souhaitez demander votre carte jeune, merci de remplir le formulaire ci-dessous.
+      </p>
+    </div>
+
+    <form [formGroup]="getMyCardForm" class="form-content" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="tel">Nom</label>
+        <input
+          type="text" id="lastname" class="form-control" formControlName="lastname"
+          value='Doe' readonly="true"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="tel">Prénom</label>
+        <input
+          type="text" id="firstname" class="form-control" formControlName="firstname"
+          value='John' readonly="true"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="tel">Email</label>
+        <input
+          type="text" id="email" class="form-control" formControlName="email"
+          value='doe.john@mail.com' readonly="true"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="tel">Téléphone</label>
+        <input
+          type="text" id="tel" class="form-control" formControlName="tel"
+          [ngClass]="{ 'is-invalid': submitted && f.tel.errors }"
+          placeholder="Téléphone" autocomplete="tel"
+        />
+        <div *ngIf="submitted && f.tel.errors" class="invalid-feedback">
+          <div *ngIf="f.tel.errors.required">Champ requis.</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="birthdate">Date de naissance</label>
+        <input
+          type="date" id="birthdate" class="form-control" formControlName="birthdate"
+          [ngClass]="{ 'is-invalid': submitted && f.birthdate.errors }"
+          placeholder="Répéter mot de passe" autocomplete="off"
+        />
+        <div *ngIf="submitted && f.birthdate.errors" class="invalid-feedback">
+          <div *ngIf="f.birthdate.errors.required">Champ requis.</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="documents">Documents</label>
+        <input
+          type="file" id="documents" class="form-control" formControlName="documents"
+          (change)="onFileChange($event)"
+          [ngClass]="{ 'is-invalid': submitted && f.documents.errors }"
+          placeholder="Documents" autocomplete="off"
+        />
+        <div *ngIf="submitted && f.documents.errors" class="invalid-feedback">
+          <div *ngIf="f.documents.errors.required">Champ requis.</div>
+        </div>
+      </div>
+
+      <div class="form-group form-check">
+        <input type="checkbox" class="form-control" formControlName="student" id="student" class="form-check-input" [ngClass]="{ 'is-invalid': submitted && f.student.errors }" />
+        <label for="student" class="form-check-label">Je suis étudiant</label>
+      </div>
+
+      <div class="form-footer">
+        <button class="btn btn-danger" type="reset" (click)="onReset()">Annuler</button>
+        <button class="btn btn-success" type="submit">Envoyer</button>
+      </div>
+    </form>
+  </div>
+</div>

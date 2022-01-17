@@ -7,7 +7,6 @@ import { RegisterComponent } from './components/register/register.component';
 import { LoginComponent } from './components/login/login.component';
 import { CarteJeuneComponent } from './components/carte-jeune/carte-jeune.component';
 import { LayoutComponent } from './components/layout/layout.component';
-import { CarteJeuneNumeriqueComponent } from './components/carte-jeune-numerique/carte-jeune-numerique.component';
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { PasswordRecoveryComponent } from './components/password-recovery/password-recovery.component';
 import { EmailverificationComponent } from './components/emailverification/emailverification.component';
@@ -15,6 +14,8 @@ import { AccountconfirmationComponent } from './components/accountconfirmation/a
 import {UsernameRecoveryComponent} from "./components/username-recovery/username-recovery.component";
 import { NewpasswordComponent } from './components/newpassword/newpassword.component';
 import { PasswordEmailverifyComponent } from './components/password-emailverify/password-emailverify.component';
+import { GetMyCardComponent } from './components/get-my-card/get-my-card.component';
+import { EditMyCardComponent } from './components/edit-my-card/edit-my-card.component';
 
 @NgModule({
   declarations: [
@@ -23,13 +24,14 @@ import { PasswordEmailverifyComponent } from './components/password-emailverify/
     LoginComponent,
     CarteJeuneComponent,
     LayoutComponent,
-    CarteJeuneNumeriqueComponent,
     UsernameRecoveryComponent,
     PasswordRecoveryComponent,
     EmailverificationComponent,
     AccountconfirmationComponent,
     NewpasswordComponent,
     PasswordEmailverifyComponent,
+    GetMyCardComponent,
+    EditMyCardComponent,
   ],
     imports: [
         BrowserModule,

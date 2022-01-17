@@ -1,96 +1,102 @@
-<div class="container">
-  <div class="logo">
-    <div class="logo-inner"></div>
+<div class='content-container'>
+  <div class='title'>
+    <h1>S'INSCRIRE</h1>
   </div>
+  <app-layout></app-layout>
+  <div class="container">
+    <div class="logo">
+      <div class="logo-inner"></div>
+    </div>
 
-  <div class="header-content mt-2 mb-2">
-    <p>
-      Bienvenue sur le site de la F.F.C.C<br>
-      Pour vous inscrire sur le site, merci de bien vouloir renseigner l'ensemble des champs ci-dessous.
-    </p>
+    <div class="header-content mt-2 mb-2">
+      <p>
+        Bienvenue sur le site de la F.F.C.C<br>
+        Pour vous inscrire sur le site, merci de bien vouloir renseigner l'ensemble des champs ci-dessous.
+      </p>
+    </div>
+
+    <form [formGroup]="registerForm" class="form-content" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <input
+          type="text" id="firstname" class="form-control" formControlName="firstname"
+          [ngClass]="{ 'is-invalid': submitted && f.firstname.errors }"
+          placeholder="Prénom" autocomplete="on"
+        />
+        <div *ngIf="submitted && f.firstname.errors" class="invalid-feedback">
+          <div *ngIf="f.firstname.errors.required">Champ requis.</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <input
+          type="text" id="lastname" class="form-control" formControlName="lastname"
+          [ngClass]="{ 'is-invalid': submitted && f.lastname.errors }"
+          placeholder="Nom" autocomplete="on"
+        />
+        <div *ngIf="submitted && f.lastname.errors" class="invalid-feedback">
+          <div *ngIf="f.lastname.errors.required">Champ requis.</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <input
+          type="text" id="email" class="form-control" formControlName="email"
+          [ngClass]="{ 'is-invalid': submitted && f.email.errors }"
+          placeholder="Adresse mail" autocomplete="email"
+        />
+        <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+          <div *ngIf="f.email.errors.required">Champ requis.</div>
+          <div *ngIf="f.email.errors.pattern">Adresse email invalide.</div>
+          <div *ngIf="f.email.errors.alreadyExists">Ce compte existe déjà.</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <input
+          type="text" id="confirmEmail" class="form-control" formControlName="confirmEmail"
+          [ngClass]="{ 'is-invalid': submitted && f.confirmEmail.errors }"
+          placeholder="Répéter adresse mail" autocomplete="new-mail"
+        />
+        <div *ngIf="submitted && f.confirmEmail.errors" class="invalid-feedback">
+          <div *ngIf="f.confirmEmail.errors.required">Champ requis.</div>
+          <div *ngIf="f.confirmEmail.errors.emailMatching">Les emails ne correspondent pas.</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <input
+          type="password" id="password" class="form-control" formControlName="password"
+          ng-minlength="8" [ngClass]="{ 'is-invalid': submitted && f.password.errors }"
+          placeholder="Mot de passe" autocomplete="off"
+        />
+        <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+          <div *ngIf="f.password.errors.required">Champ requis.</div>
+          <div *ngIf="f.password.errors.pattern">Mot de passe pas assez sécurisé.</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <input
+          type="password" id="confirmPassword" class="form-control" formControlName="confirmPassword"
+          [ngClass]="{ 'is-invalid': submitted && f.confirmPassword.errors }"
+          placeholder="Répéter mot de passe" autocomplete="off"
+        />
+        <div *ngIf="submitted && f.confirmPassword.errors" class="invalid-feedback">
+          <div *ngIf="f.confirmPassword.errors.required">Champ requis.</div>
+          <div *ngIf="f.confirmPassword.errors.passwordMatching">Les mots de passe ne correspondent pas.</div>
+        </div>
+      </div>
+
+      <div class="form-group form-check">
+        <input type="checkbox" class="form-control" formControlName="acceptTerms" id="acceptTerms" class="form-check-input" [ngClass]="{ 'is-invalid': submitted && f.acceptTerms.errors }" />
+        <label for="acceptTerms" class="form-check-label">J'accepte les CGU</label>
+        <div *ngIf="submitted && f.acceptTerms.errors" class="invalid-feedback">Vous devez accepter les CGU</div>
+      </div>
+
+      <div class="form-footer">
+        <button class="btn btn-danger" type="reset" (click)="onReset()">Annuler</button>
+        <button class="btn btn-success" type="submit">Créer le compte</button>
+      </div>
+    </form>
   </div>
-
-  <form [formGroup]="registerForm" class="form-content" (ngSubmit)="onSubmit()">
-    <div class="form-group">
-      <input
-        type="text" id="firstname" class="form-control" formControlName="firstname"
-        [ngClass]="{ 'is-invalid': submitted && f.firstname.errors }"
-        placeholder="Prénom" autocomplete="on"
-      />
-      <div *ngIf="submitted && f.firstname.errors" class="invalid-feedback">
-        <div *ngIf="f.firstname.errors.required">Champ requis.</div>
-      </div>
-    </div>
-
-    <div class="form-group">
-      <input
-        type="text" id="lastname" class="form-control" formControlName="lastname"
-        [ngClass]="{ 'is-invalid': submitted && f.lastname.errors }"
-        placeholder="Nom" autocomplete="on"
-      />
-      <div *ngIf="submitted && f.lastname.errors" class="invalid-feedback">
-        <div *ngIf="f.lastname.errors.required">Champ requis.</div>
-      </div>
-    </div>
-
-    <div class="form-group">
-      <input
-        type="text" id="email" class="form-control" formControlName="email"
-        [ngClass]="{ 'is-invalid': submitted && f.email.errors }"
-        placeholder="Adresse mail" autocomplete="email"
-      />
-      <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
-        <div *ngIf="f.email.errors.required">Champ requis.</div>
-        <div *ngIf="f.email.errors.pattern">Adresse email invalide.</div>
-        <div *ngIf="f.email.errors.alreadyExists">Ce compte existe déjà.</div>
-      </div>
-    </div>
-
-    <div class="form-group">
-      <input
-        type="text" id="confirmEmail" class="form-control" formControlName="confirmEmail"
-        [ngClass]="{ 'is-invalid': submitted && f.confirmEmail.errors }"
-        placeholder="Répéter adresse mail" autocomplete="new-mail"
-      />
-      <div *ngIf="submitted && f.confirmEmail.errors" class="invalid-feedback">
-        <div *ngIf="f.confirmEmail.errors.required">Champ requis.</div>
-        <div *ngIf="f.confirmEmail.errors.emailMatching">Les emails ne correspondent pas.</div>
-      </div>
-    </div>
-
-    <div class="form-group">
-      <input
-        type="password" id="password" class="form-control" formControlName="password"
-        ng-minlength="8" [ngClass]="{ 'is-invalid': submitted && f.password.errors }"
-        placeholder="Mot de passe" autocomplete="off"
-      />
-      <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
-        <div *ngIf="f.password.errors.required">Champ requis.</div>
-        <div *ngIf="f.password.errors.pattern">Mot de passe pas assez sécurisé.</div>
-      </div>
-    </div>
-
-    <div class="form-group">
-      <input
-        type="password" id="confirmPassword" class="form-control" formControlName="confirmPassword"
-        [ngClass]="{ 'is-invalid': submitted && f.confirmPassword.errors }"
-        placeholder="Répéter mot de passe" autocomplete="off"
-      />
-      <div *ngIf="submitted && f.confirmPassword.errors" class="invalid-feedback">
-        <div *ngIf="f.confirmPassword.errors.required">Champ requis.</div>
-        <div *ngIf="f.confirmPassword.errors.passwordMatching">Les mots de passe ne correspondent pas.</div>
-      </div>
-    </div>
-
-    <div class="form-group form-check">
-      <input type="checkbox" class="form-control" formControlName="acceptTerms" id="acceptTerms" class="form-check-input" [ngClass]="{ 'is-invalid': submitted && f.acceptTerms.errors }" />
-      <label for="acceptTerms" class="form-check-label">J'accepte les CGU</label>
-      <div *ngIf="submitted && f.acceptTerms.errors" class="invalid-feedback">Vous devez accepter les CGU</div>
-    </div>
-
-    <div class="form-footer">
-      <button class="btn btn-danger" type="reset" (click)="onReset()">Annuler</button>
-      <button class="btn btn-success" type="submit">Créer le compte</button>
-    </div>
-  </form>
 </div>

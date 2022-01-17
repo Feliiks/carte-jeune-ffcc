@@ -90,3 +90,9 @@ label[for='acceptTerms'] {
   display: flex;
   justify-content: space-around;
 }
+
+label[for='student'] {
+  margin-left: 10px;
+
+  font-weight: normal;
+}
