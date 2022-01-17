@@ -11,12 +11,13 @@ import {Router} from '@angular/router';
 export class GetMyCardComponent implements OnInit {
   getMyCardForm: FormGroup;
   submitted = false;
+  student = false;
+  selectedFiles?: FileList;
 
   constructor(
     private formBuilder: FormBuilder,
     private router: Router
-  ) {
-  }
+  ) {}
 
   ngOnInit(): void {
     this.getMyCardForm = new FormGroup({
@@ -26,13 +27,10 @@ export class GetMyCardComponent implements OnInit {
       birthdate: new FormControl('', [
         Validators.required
       ]),
+      student: new FormControl(false),
       documents: new FormControl('', [
         Validators.required
       ]),
-      fileSource: new FormControl('', [
-        Validators.required
-      ]),
-      student: new FormControl(false)
     })
   }
 
@@ -40,13 +38,12 @@ export class GetMyCardComponent implements OnInit {
     return this.getMyCardForm.controls;
   }
 
-  onFileChange(event:any) {
-    if (event.target.files.length > 0) {
-      const file = event.target.files[0];
-      this.getMyCardForm.patchValue({
-        fileSource: file
-      });
-    }
+  selectFiles(event: any): void {
+    this.selectedFiles = event.target.files;
+  }
+
+  setUserStudent = () => {
+    this.student = this.f.student.value
   }
 
   onSubmit = async () => {
@@ -54,14 +51,14 @@ export class GetMyCardComponent implements OnInit {
 
     let tel = this.f.tel.value;
     let birthdate = this.f.birthdate.value;
-    let documents = this.f.fileSource.value;
+    let documents = this.selectedFiles;
     let student = this.f.student.value;
 
     let user = {
       tel,
       birthdate,
-      documents,
-      student
+      student,
+      documents
     };
 
     if (!this.getMyCardForm.invalid) {

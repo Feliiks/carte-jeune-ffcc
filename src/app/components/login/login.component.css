@@ -1,7 +1,8 @@
 .content-container {
-  height: auto; width: 100%;
+  height: auto; width: 60%;
 
   padding: 10px;
+  margin: 0 auto;
 
   position: relative;
 }
