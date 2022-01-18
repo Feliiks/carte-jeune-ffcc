@@ -17,3 +17,11 @@ model users {
   email_token       String? @db.VarChar(255)
   password_token    String? @db.VarChar(255)
 }
+
+model youth_card_requests {
+  id             Int      @id @default(autoincrement())
+  user_id        Int      @unique(map: "youth_card_requests_user_id_uindex")
+  user_tel       String   @db.VarChar(20)
+  user_birthdate DateTime @db.Date
+  user_student   Boolean  @default(false)
+}

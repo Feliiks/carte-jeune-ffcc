@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
-import {Router} from '@angular/router';
+import {FormControl, FormGroup, Validators} from "@angular/forms";
+import Axios from "axios";
 
 @Component({
   selector: 'app-get-my-card',
@@ -13,11 +13,14 @@ export class GetMyCardComponent implements OnInit {
   submitted = false;
   student = false;
   selectedFiles?: FileList;
+  // Données récupérées de la session de l'user
+  sessionData = {
+    firstname: 'Ludovic',
+    lastname: 'Sobrero',
+    email: 'sobrero.ludovic@gmail.com'
+  };
 
-  constructor(
-    private formBuilder: FormBuilder,
-    private router: Router
-  ) {}
+  constructor() {}
 
   ngOnInit(): void {
     this.getMyCardForm = new FormGroup({
@@ -30,7 +33,7 @@ export class GetMyCardComponent implements OnInit {
       student: new FormControl(false),
       documents: new FormControl('', [
         Validators.required
-      ]),
+      ])
     })
   }
 
@@ -49,20 +52,25 @@ export class GetMyCardComponent implements OnInit {
   onSubmit = async () => {
     this.submitted = true;
 
-    let tel = this.f.tel.value;
-    let birthdate = this.f.birthdate.value;
-    let documents = this.selectedFiles;
-    let student = this.f.student.value;
-
     let user = {
-      tel,
-      birthdate,
-      student,
-      documents
-    };
+      ...this.sessionData,
+      tel: this.f.tel.value,
+      birthdate: this.f.birthdate.value,
+      documents: this.selectedFiles,
+      student: this.f.student.value
+    }
 
     if (!this.getMyCardForm.invalid) {
-      console.log(user)
+      try {
+        let res = await Axios.post("http://localhost:3009/card/request", user);
+
+        if (res.status === 201) {
+          console.log('Demande créée !')
+        }
+
+      } catch (err) {
+        console.error(err.message);
+      }
     }
   }
 
