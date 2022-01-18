@@ -320,3 +320,30 @@ app.post('/account/password/getNewPassword', async (req, res) => {
     console.error(err)
   }
 })
+
+// YOUTH CARD REQUESTS _________________________________________________________
+app.post('/card/request', async (req, res) => {
+  let { email, tel, birthdate, student } = req.body
+
+  try {
+    let user = await prisma.users.findMany({
+      where: {
+        email: email
+      }
+    })
+
+    await prisma.youth_card_requests.create({
+      data: {
+        user_id: user[0].id,
+        user_tel: tel,
+        user_birthdate: new Date(birthdate),
+        user_student: student
+      }
+    })
+
+    res.sendStatus(201)
+  } catch (err) {
+    console.error(err.message)
+    res.sendStatus(400)
+  }
+})
