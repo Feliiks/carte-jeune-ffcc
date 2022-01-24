@@ -4,25 +4,43 @@ import Axios from "axios";
 
 @Component({
   selector: 'app-get-my-card',
-  templateUrl: './get-my-card.component.html',
-  styleUrls: ['./get-my-card.component.css'],
+  templateUrl: './my-card.component.html',
+  styleUrls: ['./my-card.component.css'],
 })
 
-export class GetMyCardComponent implements OnInit {
+export class MyCardComponent implements OnInit {
   getMyCardForm: FormGroup;
   submitted = false;
-  student = false;
   selectedFiles?: FileList;
+  student: false;
   // Données récupérées de la session de l'user
   sessionData = {
+    id: 28,
     firstname: 'Ludovic',
     lastname: 'Sobrero',
-    email: 'sobrero.ludovic@gmail.com'
+    birthdate: "2001-11-28",
+    student: true,
+    postcode: 30000,
+    city: "Nimes",
+    email: 'sobrero.ludovic@gmail.com',
+    youthCard: null as any
   };
 
   constructor() {}
 
-  ngOnInit(): void {
+  async getYouthCardFromUser() {
+    try {
+      let res = await Axios.post("http://localhost:3009/user/card/get", {userId: this.sessionData.id});
+
+      if (!res.data) throw new Error()
+
+      return this.sessionData.youthCard = res.data
+    } catch {
+      return null
+    }
+  }
+
+  async ngOnInit(): Promise<void> {
     this.getMyCardForm = new FormGroup({
       tel: new FormControl('', [
         Validators.required
@@ -35,6 +53,13 @@ export class GetMyCardComponent implements OnInit {
         Validators.required
       ])
     })
+
+    await this.getYouthCardFromUser()
+  }
+
+  getDate(dateToFormat: any) {
+    let date = new Date(dateToFormat)
+    return date.getFullYear() + "-" + date.getMonth() + 1 + "-" + date.getDay()
   }
 
   public get f() {

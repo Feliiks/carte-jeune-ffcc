@@ -44,7 +44,7 @@ app.use(express.json())
 
 // REGISTER ___________________________________________________________
 app.post('/register', async (req, res) => {
-  let { firstname, lastname, email, password } = req.body
+  let { firstname, lastname, postcode, city, email, password } = req.body
 
   try {
     let findUser = await prisma.users.findMany({
@@ -69,6 +69,8 @@ app.post('/register', async (req, res) => {
       data: {
         firstname: firstname,
         lastname: lastname,
+        post_code: parseInt(postcode),
+        city: city,
         email: email,
         password: finalHash,
         email_token: emailToken,
@@ -342,6 +344,23 @@ app.post('/card/request', async (req, res) => {
     })
 
     res.sendStatus(201)
+  } catch (err) {
+    console.error(err.message)
+    res.sendStatus(400)
+  }
+})
+
+app.post('/user/card/get', async (req, res) => {
+  let { userId } = req.body
+
+  try {
+    let result = await prisma.youth_cards.findMany({
+      where: {
+        user_id: userId
+      }
+    })
+
+    res.status(200).json(result[0])
   } catch (err) {
     console.error(err.message)
     res.sendStatus(400)

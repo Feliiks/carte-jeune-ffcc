@@ -1,4 +1,4 @@
-<div class='content-container'>
+<div *ngIf="!sessionData.youthCard" class="get-my-card-container">
   <div class='title'>
     <h1>DEMANDER MA CARTE JEUNE</h1>
   </div>
@@ -79,5 +79,53 @@
         <button class="btn btn-success" type="submit">Envoyer</button>
       </div>
     </form>
+  </div>
+</div>
+
+<div *ngIf="sessionData.youthCard" class="edit-my-card-container">
+  <div class='title'>
+    <h1>Mes informations carte jeune</h1>
+  </div>
+  <div class="container">
+    <div class="left-panel">
+      <button class='btn btn-secondary'>Imprimer ma carte jeune</button>
+      <div class="information-panel">
+        <p>
+          Depuis 2022, l'accès à certaines courses camarguaises permet aux jeunes de moins de 20 ans, ou étudiant de
+          moins de 25 ans , de bénéficier d'un tarif préférentiel. Ce projet porté par la commission jeunes de la FFCC
+          est expérimentale.
+          Renseignez-vous avant chaque course pour être sûr de pouvoir bénéficier de cet avantage.
+        </p>
+      </div>
+      <button class='btn btn-secondary'>Signaler une erreur</button>
+    </div>
+    <div class="middle-panel">
+      <div class="youth-card-content">
+        <div class="data">
+          <span>Nom: {{sessionData.lastname}}</span>
+          <span>Prénom: {{sessionData.firstname}}</span>
+          <span>CP: {{sessionData.postcode}}</span>
+          <span>Ville: {{sessionData.city}}</span>
+          <span>Date de naissance: {{sessionData.birthdate}}</span>
+          <span>Etudiant: {{sessionData.student ? "Oui" : "Non"}}</span>
+          <span>Validée le: {{this.getDate(sessionData.youthCard.issue_date)}}</span>
+          <span>Expire le: {{this.getDate(sessionData.youthCard.expiration_date)}}</span>
+        </div>
+        <div class="identifiers">
+          Image..
+          <br><br>
+          QR Code..
+        </div>
+      </div>
+      <div class="information-panel">
+        <p>
+          La présentation de cette carte à l'entrée des arènes permet de bénéficier d'un tarif préférentiel unique.
+          Attention, seules les courses annoncées "carte jeune acceptée" propose cette disposition.
+        </p>
+      </div>
+    </div>
+    <div class="right-panel">
+      right-panel
+    </div>
   </div>
 </div>

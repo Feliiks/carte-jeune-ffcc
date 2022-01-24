@@ -1,5 +1,5 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import {NgModule} from '@angular/core';
+import {RouterModule, Routes} from '@angular/router';
 import {RegisterComponent} from "./components/register/register.component";
 import {LoginComponent} from "./components/login/login.component";
 import {HomeComponent} from "./components/home/home.component";
@@ -9,8 +9,7 @@ import {AccountconfirmationComponent} from "./components/accountconfirmation/acc
 import {UsernameRecoveryComponent} from "./components/username-recovery/username-recovery.component";
 import {NewpasswordComponent} from "./components/newpassword/newpassword.component";
 import {PasswordEmailverifyComponent} from "./components/password-emailverify/password-emailverify.component";
-import { GetMyCardComponent } from './components/get-my-card/get-my-card.component';
-import { EditMyCardComponent } from './components/edit-my-card/edit-my-card.component';
+import {MyCardComponent} from './components/my-card/my-card.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
@@ -27,13 +26,12 @@ const routes: Routes = [
   {path: 'account/password/emailverify/:email', component: PasswordEmailverifyComponent},
   {path: 'account/passwordrecovery/newpassword/:token', component: NewpasswordComponent},
 
-  {path: 'get-my-card', component: GetMyCardComponent},
-
-  {path: 'edit-my-card', component: EditMyCardComponent}
+  {path: 'my-card', component: MyCardComponent},
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {
+}

@@ -13,8 +13,8 @@ import { AccountconfirmationComponent } from './components/accountconfirmation/a
 import {UsernameRecoveryComponent} from "./components/username-recovery/username-recovery.component";
 import { NewpasswordComponent } from './components/newpassword/newpassword.component';
 import { PasswordEmailverifyComponent } from './components/password-emailverify/password-emailverify.component';
-import { GetMyCardComponent } from './components/get-my-card/get-my-card.component';
-import { EditMyCardComponent } from './components/edit-my-card/edit-my-card.component';
+import { MyCardComponent } from './components/my-card/my-card.component';
+
 
 @NgModule({
   declarations: [
@@ -28,8 +28,7 @@ import { EditMyCardComponent } from './components/edit-my-card/edit-my-card.comp
     AccountconfirmationComponent,
     NewpasswordComponent,
     PasswordEmailverifyComponent,
-    GetMyCardComponent,
-    EditMyCardComponent,
+    MyCardComponent
   ],
     imports: [
         BrowserModule,

@@ -30,6 +30,15 @@ export class RegisterComponent implements OnInit {
         Validators.required,
         Validators.minLength(3)
       ]),
+      postcode: new FormControl('', [
+        Validators.required,
+        Validators.minLength(5),
+        Validators.pattern("^[0-9]*$")
+      ]),
+      city: new FormControl('', [
+        Validators.required,
+        Validators.minLength(3)
+      ]),
       email: new FormControl('', [
         Validators.required,
         Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')
@@ -62,12 +71,16 @@ export class RegisterComponent implements OnInit {
 
     let firstname = this.f.firstname.value;
     let lastname = this.f.lastname.value;
+    let postcode = this.f.postcode.value;
+    let city = this.f.city.value;
     let email = this.f.email.value;
     let password = this.f.password.value;
 
     let user = {
       firstname,
       lastname,
+      postcode,
+      city,
       email,
       password
     };

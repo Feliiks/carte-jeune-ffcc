@@ -39,6 +39,28 @@
 
       <div class="form-group">
         <input
+          type="text" id="postcode" class="form-control" formControlName="postcode"
+          [ngClass]="{ 'is-invalid': submitted && f.postcode.errors }"
+          placeholder="Code postal" autocomplete="on"
+        />
+        <div *ngIf="submitted && f.postcode.errors" class="invalid-feedback">
+          <div *ngIf="f.postcode.errors.required">Champ requis.</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <input
+          type="text" id="city" class="form-control" formControlName="city"
+          [ngClass]="{ 'is-invalid': submitted && f.city.errors }"
+          placeholder="Ville" autocomplete="on"
+        />
+        <div *ngIf="submitted && f.city.errors" class="invalid-feedback">
+          <div *ngIf="f.city.errors.required">Champ requis.</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <input
           type="text" id="email" class="form-control" formControlName="email"
           [ngClass]="{ 'is-invalid': submitted && f.email.errors }"
           placeholder="Adresse mail" autocomplete="email"

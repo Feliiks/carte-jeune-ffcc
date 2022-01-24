@@ -8,14 +8,19 @@ datasource db {
 }
 
 model users {
-  id                Int     @id @default(autoincrement())
-  firstname         String  @db.VarChar(50)
-  lastname          String  @db.VarChar(50)
-  email             String  @db.VarChar(100)
-  password          String  @db.VarChar(100)
-  is_email_verified Boolean @default(false)
-  email_token       String? @db.VarChar(255)
-  password_token    String? @db.VarChar(255)
+  id                Int       @id @default(autoincrement())
+  firstname         String    @db.VarChar(50)
+  lastname          String    @db.VarChar(50)
+  birthdate         DateTime? @db.Date
+  email             String    @db.VarChar(100)
+  tel               Int?
+  city              String    @db.VarChar(50)
+  post_code         Int
+  student           Boolean   @default(false)
+  password          String    @db.VarChar(100)
+  password_token    String?   @db.VarChar(255)
+  email_token       String?   @db.VarChar(255)
+  is_email_verified Boolean   @default(false)
 }
 
 model youth_card_requests {
@@ -24,4 +29,11 @@ model youth_card_requests {
   user_tel       String   @db.VarChar(20)
   user_birthdate DateTime @db.Date
   user_student   Boolean  @default(false)
+}
+
+model youth_cards {
+  id              Int      @id @default(autoincrement())
+  user_id         Int      @unique(map: "youth_cards_user_id_uindex")
+  issue_date      DateTime @db.Date
+  expiration_date DateTime @db.Date
 }
