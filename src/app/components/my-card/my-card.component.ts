@@ -14,33 +14,23 @@ export class MyCardComponent implements OnInit {
   selectedFiles?: FileList;
   student: false;
   // Données récupérées de la session de l'user
-  sessionData = {
-    id: 28,
-    firstname: 'Ludovic',
-    lastname: 'Sobrero',
-    birthdate: "2001-11-28",
-    student: true,
-    postcode: 30000,
-    city: "Nimes",
-    email: 'sobrero.ludovic@gmail.com',
-    youthCard: null as any
-  };
+  user: any = null
 
   constructor() {}
 
   async getYouthCardFromUser() {
     try {
-      let res = await Axios.post("http://localhost:3009/user/card/get", {userId: this.sessionData.id});
+      let res = await Axios.post("http://localhost:3009/user/card/get", {userId: this.user.id});
 
       if (!res.data) throw new Error()
 
-      return this.sessionData.youthCard = res.data
+      return this.user.youthCard = res.data
     } catch {
       return null
     }
   }
 
-  async ngOnInit(): Promise<void> {
+  async ngOnInit(): Promise<any> {
     this.getMyCardForm = new FormGroup({
       tel: new FormControl('', [
         Validators.required
@@ -54,12 +44,27 @@ export class MyCardComponent implements OnInit {
       ])
     })
 
-    await this.getYouthCardFromUser()
+    let sessionToken = sessionStorage.getItem('sessionToken')
+
+    try {
+      if (sessionToken === null || sessionToken === undefined) throw new Error();
+
+      let res = await Axios.post("http://localhost:3009/user/session/get", { sessionToken: sessionToken });
+
+      if (res.status !== 200) throw new Error();
+
+      this.user = res.data
+
+      await this.getYouthCardFromUser()
+      console.log(this.user)
+    } catch {
+      return null
+    }
   }
 
   getDate(dateToFormat: any) {
     let date = new Date(dateToFormat)
-    return date.getFullYear() + "-" + date.getMonth() + 1 + "-" + date.getDay()
+    return date.toLocaleDateString()
   }
 
   public get f() {
@@ -78,7 +83,7 @@ export class MyCardComponent implements OnInit {
     this.submitted = true;
 
     let user = {
-      ...this.sessionData,
+      ...this.user,
       tel: this.f.tel.value,
       birthdate: this.f.birthdate.value,
       documents: this.selectedFiles,

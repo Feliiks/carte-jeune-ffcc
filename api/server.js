@@ -4,6 +4,7 @@ const cors = require('cors')
 
 const prisma = require('./db')
 const jwt = require('jsonwebtoken')
+const { v4: uuidv4 } = require('uuid');
 
 const sha256 = require('crypto-js/sha256')
 const Base64 = require('crypto-js/enc-base64')
@@ -58,15 +59,18 @@ app.post('/register', async (req, res) => {
     let hash = sha256(password)
     let finalHash = Base64.stringify(hash)
 
+    let uid = uuidv4()
+
     let emailToken = jwt.sign(
       {
-        email: email,
+        uid: uid,
       },
       process.env.TOKEN_KEY,
     )
 
     await prisma.users.create({
       data: {
+        uid: uid,
         firstname: firstname,
         lastname: lastname,
         post_code: parseInt(postcode),
@@ -136,7 +140,7 @@ app.post('/account/accountconfirmation', async (req, res) => {
 
     const user = await prisma.users.findMany({
       where: {
-        email: check.email,
+        uid: check.uid,
         is_email_verified: false,
         email_token: token,
       },
@@ -168,19 +172,28 @@ app.post('/login', async (req, res) => {
   let { email, password } = req.body
 
   try {
-    let findUser = await prisma.users.findMany({
+    let user = await prisma.users.findMany({
       where: {
         email: email,
       },
     })
 
-    if (!findUser[0]) throw new Error
+    if (!user[0]) throw new Error
 
     let hash = Base64.stringify(sha256(password))
 
-    if (findUser[0].password !== hash) throw new Error
+    if (user[0].password !== hash) throw new Error
 
-    res.sendStatus(200)
+    let sessionToken = jwt.sign(
+      {
+        uid: user[0].uid
+      },
+      process.env.TOKEN_KEY,
+      {
+        expiresIn: "24h"
+      })
+
+    res.status(200).json(sessionToken)
 
   } catch (err) {
     res.sendStatus(401)
@@ -361,6 +374,27 @@ app.post('/user/card/get', async (req, res) => {
     })
 
     res.status(200).json(result[0])
+  } catch (err) {
+    console.error(err.message)
+    res.sendStatus(400)
+  }
+})
+
+app.post('/user/session/get', async (req, res) => {
+  let { sessionToken } = req.body
+
+  try {
+    let check = await jwt.verify(sessionToken, process.env.TOKEN_KEY)
+
+    let user = await prisma.users.findMany({
+      where: {
+        uid: check.uid
+      }
+    })
+
+    if (!user[0]) throw new Error()
+
+    res.status(200).json(user[0])
   } catch (err) {
     console.error(err.message)
     res.sendStatus(400)

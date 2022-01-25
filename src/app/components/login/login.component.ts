@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import Axios from 'axios';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-login',
@@ -11,7 +12,10 @@ export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   submitted = false;
 
-  constructor(private formBuilder: FormBuilder) { }
+  constructor (
+    private formBuilder: FormBuilder,
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
     this.loginForm = new FormGroup({
@@ -40,7 +44,11 @@ export class LoginComponent implements OnInit {
           password: password.value
         });
 
-        if (res.status === 200) console.log('connexion ok');
+        if (res.status !== 200) throw new Error()
+
+        sessionStorage.setItem("sessionToken", res.data)
+        await this.router.navigate(['/my-card']);
+        location.reload();
 
       } catch (err) {
         this.f.email.setErrors({ accessDenied: true });

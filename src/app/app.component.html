@@ -5,10 +5,10 @@
     <img routerLink="/" src="./assets/logoFFCC.png" alt="logo ffcc" />
 
     <div class='navbar'>
-      <button class='btn btn-secondary' routerLink="/register">Inscription</button>
-      <button class='btn btn-secondary' routerLink="/login">Connexion</button>
-      <button class='btn btn-secondary' routerLink="/my-card">Ma carte</button>
-      <button class='btn btn-secondary' routerLink="/logout">Déconnexion</button>
+      <button *ngIf="!user" class='btn btn-secondary' routerLink="/register">Inscription</button>
+      <button *ngIf="!user" class='btn btn-secondary' routerLink="/login">Connexion</button>
+      <button *ngIf="user" class='btn btn-secondary' routerLink="/my-card">Ma carte</button>
+      <button *ngIf="user" class='btn btn-secondary' (click)="logout()">Déconnexion</button>
     </div>
   </div>
 

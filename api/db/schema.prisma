@@ -9,6 +9,7 @@ datasource db {
 
 model users {
   id                Int       @id @default(autoincrement())
+  uid               String    @unique(map: "users_uid_uindex") @db.VarChar(100)
   firstname         String    @db.VarChar(50)
   lastname          String    @db.VarChar(50)
   birthdate         DateTime? @db.Date
