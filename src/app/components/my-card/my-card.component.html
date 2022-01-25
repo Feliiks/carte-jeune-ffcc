@@ -1,4 +1,4 @@
-<div *ngIf="!user.youthCard" class="get-my-card-container">
+<div *ngIf="user && !user.youthCard" class="get-my-card-container">
   <div class='title'>
     <h1>DEMANDER MA CARTE JEUNE</h1>
   </div>
@@ -82,7 +82,7 @@
   </div>
 </div>
 
-<div *ngIf="user.youthCard" class="edit-my-card-container">
+<div *ngIf="user && user.youthCard" class="edit-my-card-container">
   <div class='title'>
     <h1>Mes informations carte jeune</h1>
   </div>
@@ -91,7 +91,7 @@
       <button class='btn btn-secondary'>Imprimer ma carte jeune</button>
       <div class="information-panel">
         <p>
-          Depuis 2022, l'accès à certaines courses camarguaises permet aux jeunes de moins de 20 ans, ou étudiant de
+          Depuis 2022, l'accès à certaines courses camarguaises permet aux jeunes de moins de 18 ans, ou étudiant de
           moins de 25 ans , de bénéficier d'un tarif préférentiel. Ce projet porté par la commission jeunes de la FFCC
           est expérimentale.
           Renseignez-vous avant chaque course pour être sûr de pouvoir bénéficier de cet avantage.

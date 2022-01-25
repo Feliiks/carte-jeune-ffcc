@@ -2,13 +2,15 @@
 <header class="header flex-row">
 
   <div class="main-navigation">
-    <img routerLink="/" src="./assets/logoFFCC.png" alt="logo ffcc" />
+    <img routerLink="/" src="./assets/logoFFCC.png" alt="logo ffcc"/>
 
-    <div class='navbar'>
-      <button *ngIf="!user" class='btn btn-secondary' routerLink="/register">Inscription</button>
-      <button *ngIf="!user" class='btn btn-secondary' routerLink="/login">Connexion</button>
-      <button *ngIf="user" class='btn btn-secondary' routerLink="/my-card">Ma carte</button>
-      <button *ngIf="user" class='btn btn-secondary' (click)="logout()">Déconnexion</button>
+    <div *ngIf="!user" class='navbar'>
+      <button class='btn btn-secondary' routerLink="/inscription">Inscription</button>
+      <button class='btn btn-secondary' routerLink="/connexion">Connexion</button>
+    </div>
+    <div *ngIf="user" class='navbar'>
+      <button class='btn btn-secondary' routerLink="/macarte">Ma carte</button>
+      <button class='btn btn-secondary' (click)="logout()">Déconnexion</button>
     </div>
   </div>
 
@@ -17,7 +19,7 @@
   </main>
 
   <footer class="footer">
-        <p>Fédération Francaise de Course Camarguaise 2022</p>
+    <p>Fédération Francaise de Course Camarguaise 2022</p>
   </footer>
 
 </header>

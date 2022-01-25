@@ -4,6 +4,7 @@ import Axios from 'axios';
 import { Router } from '@angular/router';
 
 import Validation from '../../helpers/validator';
+import {CookieService} from "ngx-cookie-service";
 
 @Component({
   selector: 'app-register',
@@ -14,13 +15,15 @@ import Validation from '../../helpers/validator';
 export class RegisterComponent implements OnInit {
   registerForm: FormGroup;
   submitted = false;
+  sessionCookie: boolean = this.cookieService.check("sessionToken");
 
   constructor(
     private formBuilder: FormBuilder,
-    private router: Router
+    private router: Router,
+    private cookieService: CookieService
   ) { }
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<any> {
     this.registerForm = new FormGroup({
       firstname: new FormControl('', [
         Validators.required,
@@ -62,6 +65,17 @@ export class RegisterComponent implements OnInit {
         Validation.passwordsMatch('password', 'confirmPassword')
       ]
     })
+
+    // Récupération de la session de l'user
+    try {
+      if (!this.sessionCookie) throw new Error();
+      let sessionToken = this.cookieService.get("sessionToken");
+
+      let res = await Axios.post("http://localhost:3009/user/session/get", { sessionToken: sessionToken });
+      if (res.status === 200) await this.router.navigate(["/macarte"])
+    } catch {
+      return null
+    }
   }
 
   public get f() { return this.registerForm.controls; }

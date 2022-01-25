@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import Axios from 'axios';
 import {Router} from "@angular/router";
+import {CookieService} from "ngx-cookie-service";
 
 @Component({
   selector: 'app-login',
@@ -11,13 +12,15 @@ import {Router} from "@angular/router";
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   submitted = false;
+  sessionCookie: boolean = this.cookieService.check("sessionToken");
 
   constructor (
     private formBuilder: FormBuilder,
-    private router: Router
+    private router: Router,
+    private cookieService: CookieService
   ) { }
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<any> {
     this.loginForm = new FormGroup({
       email: new FormControl('', [
         Validators.required,
@@ -28,6 +31,17 @@ export class LoginComponent implements OnInit {
         Validators.pattern('(?=^.{8,}$)(?=.*\\d)(?=.*[!@#$%^&*]+)(?![.\\n])(?=.*[A-Z])(?=.*[a-z]).*$')
       ])
     })
+
+    // Récupération de la session
+    try {
+      if (!this.sessionCookie) throw new Error();
+      let sessionToken = this.cookieService.get("sessionToken")
+
+      let res = await Axios.post("http://localhost:3009/user/session/get", { sessionToken: sessionToken });
+      if (res.status === 200) await this.router.navigate(["/macarte"])
+    } catch {
+      return null
+    }
   }
 
   public get f() { return this.loginForm.controls; }
@@ -46,8 +60,8 @@ export class LoginComponent implements OnInit {
 
         if (res.status !== 200) throw new Error()
 
-        sessionStorage.setItem("sessionToken", res.data)
-        await this.router.navigate(['/my-card']);
+        this.cookieService.set("sessionToken", res.data);
+        await this.router.navigate(['/macarte']);
         location.reload();
 
       } catch (err) {

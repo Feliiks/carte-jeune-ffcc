@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import Axios from "axios";
+import {Router} from "@angular/router";
+import {CookieService} from "ngx-cookie-service";
 
 @Component({
   selector: 'app-get-my-card',
@@ -14,13 +16,17 @@ export class MyCardComponent implements OnInit {
   selectedFiles?: FileList;
   student: false;
   // Données récupérées de la session de l'user
-  user: any = null
+  user: any = null;
+  sessionCookie: boolean = this.cookieService.check("sessionToken");
 
-  constructor() {}
+  constructor(
+    private router: Router,
+    private cookieService: CookieService
+  ) {}
 
   async getYouthCardFromUser() {
     try {
-      let res = await Axios.post("http://localhost:3009/user/card/get", {userId: this.user.id});
+      let res = await Axios.post("http://localhost:3009/user/card/get", { userId: this.user.id });
 
       if (!res.data) throw new Error()
 
@@ -44,21 +50,19 @@ export class MyCardComponent implements OnInit {
       ])
     })
 
-    let sessionToken = sessionStorage.getItem('sessionToken')
-
+    // Récupération de la session de l'user
     try {
-      if (sessionToken === null || sessionToken === undefined) throw new Error();
+      if (!this.sessionCookie) throw new Error();
+      let sessionToken = this.cookieService.get("sessionToken");
 
       let res = await Axios.post("http://localhost:3009/user/session/get", { sessionToken: sessionToken });
-
       if (res.status !== 200) throw new Error();
 
       this.user = res.data
 
       await this.getYouthCardFromUser()
-      console.log(this.user)
     } catch {
-      return null
+      this.router.navigate(["/connexion"]);
     }
   }
 

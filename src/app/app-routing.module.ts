@@ -14,11 +14,11 @@ import {MyCardComponent} from './components/my-card/my-card.component';
 const routes: Routes = [
   {path: '', component: HomeComponent},
 
-  {path: 'register', component: RegisterComponent},
+  {path: 'inscription', component: RegisterComponent},
   {path: 'account/emailverification/:email', component: EmailverificationComponent},
   {path: 'account/accountconfirmation/:token', component: AccountconfirmationComponent},
 
-  {path: 'login', component: LoginComponent},
+  {path: 'connexion', component: LoginComponent},
 
   {path: 'usernamerecovery', component: UsernameRecoveryComponent},
 
@@ -26,7 +26,7 @@ const routes: Routes = [
   {path: 'account/password/emailverify/:email', component: PasswordEmailverifyComponent},
   {path: 'account/passwordrecovery/newpassword/:token', component: NewpasswordComponent},
 
-  {path: 'my-card', component: MyCardComponent},
+  {path: 'macarte', component: MyCardComponent},
 ];
 
 @NgModule({
