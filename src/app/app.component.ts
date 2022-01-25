@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import Axios from 'axios';
 import {Router} from "@angular/router";
 import {CookieService} from "ngx-cookie-service";
+import {getUserSession, getYouthCardFromUser} from "./helpers/auth";
 
 @Component({
   selector: 'app-root',
@@ -24,17 +25,15 @@ export class AppComponent implements OnInit {
       if (!this.sessionCookie) throw new Error();
       let sessionToken = this.cookieService.get("sessionToken");
 
-      let res = await Axios.post("http://localhost:3009/user/session/get", { sessionToken: sessionToken });
-      if (res.status !== 200) throw new Error();
-
-      this.user = res.data;
+      this.user = await getUserSession(sessionToken);
     } catch {
-      return this.user = null
+      return null;
     }
   }
 
   logout = async () => {
     this.cookieService.delete("sessionToken");
+    
     await this.router.navigate(['/']);
     location.reload();
   }

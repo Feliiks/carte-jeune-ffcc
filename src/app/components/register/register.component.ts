@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, FormControl, Validators} from "@angular/forms";
 import Axios from 'axios';
 import { Router } from '@angular/router';
+import { getUserSession } from "../../helpers/auth";
 
 import Validation from '../../helpers/validator';
 import {CookieService} from "ngx-cookie-service";
@@ -71,10 +72,12 @@ export class RegisterComponent implements OnInit {
       if (!this.sessionCookie) throw new Error();
       let sessionToken = this.cookieService.get("sessionToken");
 
-      let res = await Axios.post("http://localhost:3009/user/session/get", { sessionToken: sessionToken });
-      if (res.status === 200) await this.router.navigate(["/macarte"])
+      let res = await getUserSession(sessionToken);
+      if (!res) throw new Error();
+
+      await this.router.navigate(["/macarte"]);
     } catch {
-      return null
+      return null;
     }
   }
 

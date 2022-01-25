@@ -3,6 +3,7 @@ import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import Axios from 'axios';
 import {Router} from "@angular/router";
 import {CookieService} from "ngx-cookie-service";
+import {getUserSession} from "../../helpers/auth";
 
 @Component({
   selector: 'app-login',
@@ -32,15 +33,17 @@ export class LoginComponent implements OnInit {
       ])
     })
 
-    // Récupération de la session
+    // Récupération de la session de l'user
     try {
       if (!this.sessionCookie) throw new Error();
-      let sessionToken = this.cookieService.get("sessionToken")
+      let sessionToken = this.cookieService.get("sessionToken");
 
-      let res = await Axios.post("http://localhost:3009/user/session/get", { sessionToken: sessionToken });
-      if (res.status === 200) await this.router.navigate(["/macarte"])
+      let res = await getUserSession(sessionToken);
+      if (!res) throw new Error();
+
+      await this.router.navigate(["/macarte"]);
     } catch {
-      return null
+      return null;
     }
   }
 

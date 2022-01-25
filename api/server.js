@@ -190,7 +190,7 @@ app.post('/login', async (req, res) => {
       },
       process.env.TOKEN_KEY,
       {
-        expiresIn: "24h"
+        expiresIn: "20s"
       })
 
     res.status(200).json(sessionToken)
@@ -397,6 +397,6 @@ app.post('/user/session/get', async (req, res) => {
     res.status(200).json(user[0])
   } catch (err) {
     console.error(err.message)
-    res.sendStatus(400)
+    res.sendStatus(401)
   }
 })

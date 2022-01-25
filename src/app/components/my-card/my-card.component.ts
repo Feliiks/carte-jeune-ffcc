@@ -3,6 +3,7 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
 import Axios from "axios";
 import {Router} from "@angular/router";
 import {CookieService} from "ngx-cookie-service";
+import { getUserSession, getYouthCardFromUser } from "../../helpers/auth";
 
 @Component({
   selector: 'app-get-my-card',
@@ -24,18 +25,6 @@ export class MyCardComponent implements OnInit {
     private cookieService: CookieService
   ) {}
 
-  async getYouthCardFromUser() {
-    try {
-      let res = await Axios.post("http://localhost:3009/user/card/get", { userId: this.user.id });
-
-      if (!res.data) throw new Error()
-
-      return this.user.youthCard = res.data
-    } catch {
-      return null
-    }
-  }
-
   async ngOnInit(): Promise<any> {
     this.getMyCardForm = new FormGroup({
       tel: new FormControl('', [
@@ -50,19 +39,15 @@ export class MyCardComponent implements OnInit {
       ])
     })
 
-    // Récupération de la session de l'user
+    // Récupération de la session et carte jeune de l'user
     try {
       if (!this.sessionCookie) throw new Error();
       let sessionToken = this.cookieService.get("sessionToken");
 
-      let res = await Axios.post("http://localhost:3009/user/session/get", { sessionToken: sessionToken });
-      if (res.status !== 200) throw new Error();
-
-      this.user = res.data
-
-      await this.getYouthCardFromUser()
+      this.user = await getUserSession(sessionToken);
+      this.user.youthCard = await getYouthCardFromUser(this.user.id);
     } catch {
-      this.router.navigate(["/connexion"]);
+      await this.router.navigate(["/connexion"]);
     }
   }
 
