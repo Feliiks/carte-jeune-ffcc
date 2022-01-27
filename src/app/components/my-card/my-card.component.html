@@ -1,4 +1,4 @@
-<div *ngIf="user && !user.youthCard" class="get-my-card-container">
+<div *ngIf="user && !user.youthCard && !submitted" class="get-my-card-container">
   <div class='title'>
     <h1>DEMANDER MA CARTE JEUNE</h1>
   </div>
@@ -52,6 +52,30 @@
         </div>
       </div>
 
+      <div class="form-group">
+        <label for="idPhoto">Photo d'identité</label>
+        <input
+          type="file" id="idPhoto" class="form-control" formControlName="idPhoto" #idPhoto
+          (change)="selectFiles($event, idPhoto)"
+          [ngClass]="{ 'is-invalid': submitted && f.idPhoto.errors }"
+        />
+        <div *ngIf="submitted && f.idPhoto.errors" class="invalid-feedback">
+          <div *ngIf="f.idPhoto.errors.required">Champ requis.</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="idCard">Carte d'identité</label>
+        <input
+          type="file" id="idCard" class="form-control" formControlName="idCard" #idCard
+          (change)="selectFiles($event, idCard)"
+          [ngClass]="{ 'is-invalid': submitted && f.idCard.errors }"
+        />
+        <div *ngIf="submitted && f.idCard.errors" class="invalid-feedback">
+          <div *ngIf="f.idCard.errors.required">Champ requis.</div>
+        </div>
+      </div>
+
       <div class="form-group form-check">
         <input
           type="checkbox" class="form-control" formControlName="student" id="student" class="form-check-input"
@@ -61,17 +85,16 @@
         <label for="student" class="form-check-label">Je suis étudiant</label>
       </div>
 
-      <div class="form-group">
-        <label for="documents">Documents</label>
+      <div *ngIf="student" class="form-group">
+        <label for="studentCard">Carte étudiant</label>
         <input
-          type="file" id="documents" multiple class="form-control" formControlName="documents"
-          (change)="selectFiles($event)"
-          [ngClass]="{ 'is-invalid': submitted && f.documents.errors }"
+          type="file" id="studentCard" class="form-control" formControlName="studentCard" #studentCard
+          (change)="selectFiles($event, studentCard)"
+          [ngClass]="{ 'is-invalid': submitted && f.studentCard.errors }"
         />
-        <div *ngIf="submitted && f.documents.errors" class="invalid-feedback">
-          <div *ngIf="f.documents.errors.required">Champ requis.</div>
+        <div *ngIf="submitted && f.studentCard.errors" class="invalid-feedback">
+          <div *ngIf="f.studentCard.errors.required">Champ requis.</div>
         </div>
-        <p>Photo et carte d'identité attendues. Pour les étudiants, un certificat de scolarité est attendu.</p>
       </div>
 
       <div class="form-footer">
@@ -79,6 +102,76 @@
         <button class="btn btn-success" type="submit">Envoyer</button>
       </div>
     </form>
+  </div>
+</div>
+
+<div *ngIf="user && !user.youthCard && submitted && request && !formValidation && !getMyCardForm.invalid"
+     class="get-my-card-container">
+  <div class='title'>
+    <h1>CONFIRMER MA DEMANDE</h1>
+  </div>
+  <div class="container">
+    <div class="logo">
+      <div class="logo-inner"></div>
+    </div>
+
+    <div class="header-content mt-2 mb-2">
+      <p>
+        Vous êtes sur le point de formuler une demande de carte jeune. Souhaitez-vous confirmer votre demande ?
+      </p>
+    </div>
+    <div class="header-content mt-2 mb-2">
+      <br>
+      <span>Nom: {{request.lastname}}</span>
+      <br>
+      <span>Prénom: {{request.firstname}}</span>
+      <br>
+      <span>Email: {{request.email}}</span>
+      <br>
+      <span>Tel: {{request.tel}}</span>
+      <br>
+      <span>Date de naissance: {{getDate(request.birthdate)}}</span>
+      <br>
+      <span>Etudiant: {{request.student === true ? "Oui" : "Non"}}</span>
+      <br>
+      <span>Photo d'identité: {{request.idPhoto.name}}</span>
+      <br>
+      <span>Carte d'identité: {{request.idCard.name}}</span>
+      <br>
+      <span *ngIf="request.student">Carte étudiant: {{request.studentCard.name}}</span>
+      <br>
+    </div>
+    <div class="form-footer">
+      <button class="btn btn-danger" type="reset" (click)="onReset()">Annuler</button>
+      <button class="btn btn-success" type="submit" (click)="onConfirm()">Valider</button>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="user && !user.youthCard && submitted && request && formValidation" class="get-my-card-container">
+  <div class='title'>
+    <h1>CONFIRMATION DE LA DEMANDE</h1>
+  </div>
+  <div class="container">
+    <div class="logo">
+      <div class="logo-inner"></div>
+    </div>
+
+    <div *ngIf="validatedRequest" class="header-content mt-2 mb-2">
+      <p>
+        Votre demande de carte jeune est désormais confirmée ! Une fois celle-ci validée par la FFCC, vous pourrez
+        récupérer
+        ou modifier votre carte dans l'onglet " Ma carte ".
+      </p>
+    </div>
+    <div *ngIf="!validatedRequest" class="header-content mt-2 mb-2">
+      <p>
+        Une erreur est survenue lors de l'envoi de votre demande ou vous avez déjà une demande en cours.
+      </p>
+    </div>
+    <div class="form-footer">
+      <button class="btn btn-success" type="submit" (click)="this.router.navigate(['/'])">Ok</button>
+    </div>
   </div>
 </div>
 
@@ -104,8 +197,8 @@
         <div class="data">
           <span>Nom: {{user.lastname}}</span>
           <span>Prénom: {{user.firstname}}</span>
-          <span>CP: {{user.post_code}}</span>
-          <span>Ville: {{user.city}}</span>
+          <span>Adresse mail: {{user.post_code}}</span>
+          <span>Téléphone: {{user.city}}</span>
           <span>Date de naissance: {{getDate(user.birthdate)}}</span>
           <span>Etudiant: {{user.student === true ? "Oui" : "Non"}}</span>
           <span>Validée le: {{getDate(user.youthCard.issue_date)}}</span>

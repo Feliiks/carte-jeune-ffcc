@@ -190,7 +190,7 @@ app.post('/login', async (req, res) => {
       },
       process.env.TOKEN_KEY,
       {
-        expiresIn: "20s"
+        expiresIn: "24h"
       })
 
     res.status(200).json(sessionToken)
@@ -338,27 +338,41 @@ app.post('/account/password/getNewPassword', async (req, res) => {
 
 // YOUTH CARD REQUESTS _________________________________________________________
 app.post('/card/request', async (req, res) => {
-  let { email, tel, birthdate, student } = req.body
+  let { id, tel, birthdate, idPhoto, idCard, student, studentCard = null } = req.body
 
   try {
-    let user = await prisma.users.findMany({
+    // On vérifie si une demande n'existe pas déjà
+    let getRequest = await prisma.youth_card_requests.findMany({
       where: {
-        email: email
+        user_id: id
       }
     })
 
+    if (getRequest[0]) throw new Error()
+
+    // On créer une nouvelle demande de carte jeune qu'on lie à l'user
+    // il reste encore à stocker les différents documents (idPhoto,..)
     await prisma.youth_card_requests.create({
       data: {
-        user_id: user[0].id,
-        user_tel: tel,
-        user_birthdate: new Date(birthdate),
-        user_student: student
+        user_id: id
+      }
+    })
+
+    // Si pas de demande existante, met à jours l'user avec les nouvelles informations
+    await prisma.users.update({
+      where: {
+        id: id
+      },
+      data: {
+        birthdate: new Date(birthdate),
+        tel: parseInt(tel),
+        student: student
       }
     })
 
     res.sendStatus(201)
   } catch (err) {
-    console.error(err.message)
+    console.error(err)
     res.sendStatus(400)
   }
 })

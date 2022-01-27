@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import Axios from 'axios';
 import {Router} from "@angular/router";
 import {CookieService} from "ngx-cookie-service";
-import {getUserSession, getYouthCardFromUser} from "./helpers/auth";
+import { getUserSession } from "./helpers/auth";
 
 @Component({
   selector: 'app-root',
@@ -33,7 +33,7 @@ export class AppComponent implements OnInit {
 
   logout = async () => {
     this.cookieService.delete("sessionToken");
-    
+
     await this.router.navigate(['/']);
     location.reload();
   }

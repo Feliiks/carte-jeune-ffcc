@@ -3,7 +3,7 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
 import Axios from "axios";
 import {Router} from "@angular/router";
 import {CookieService} from "ngx-cookie-service";
-import { getUserSession, getYouthCardFromUser } from "../../helpers/auth";
+import {getUserSession, getYouthCardFromUser} from "../../helpers/auth";
 
 @Component({
   selector: 'app-get-my-card',
@@ -13,17 +13,23 @@ import { getUserSession, getYouthCardFromUser } from "../../helpers/auth";
 
 export class MyCardComponent implements OnInit {
   getMyCardForm: FormGroup;
+  // Données de statut
   submitted = false;
-  selectedFiles?: FileList;
+  formValidation: any = false
+  validatedRequest: boolean;
+  // Données de la requête
+  request: any;
+  selectedFiles?: any;
   student: false;
   // Données récupérées de la session de l'user
   user: any = null;
   sessionCookie: boolean = this.cookieService.check("sessionToken");
 
   constructor(
-    private router: Router,
+    public router: Router,
     private cookieService: CookieService
-  ) {}
+  ) {
+  }
 
   async ngOnInit(): Promise<any> {
     this.getMyCardForm = new FormGroup({
@@ -33,10 +39,14 @@ export class MyCardComponent implements OnInit {
       birthdate: new FormControl('', [
         Validators.required
       ]),
-      student: new FormControl(false),
-      documents: new FormControl('', [
+      idPhoto: new FormControl('', [
         Validators.required
-      ])
+      ]),
+      idCard: new FormControl('', [
+        Validators.required
+      ]),
+      student: new FormControl(false),
+      studentCard: new FormControl(''),
     })
 
     // Récupération de la session et carte jeune de l'user
@@ -60,8 +70,10 @@ export class MyCardComponent implements OnInit {
     return this.getMyCardForm.controls;
   }
 
-  selectFiles(event: any): void {
-    this.selectedFiles = event.target.files;
+  selectFiles(event: any, type: any): void {
+    let fileList = {...this.selectedFiles}
+    fileList[type.id] = event.target.files[0]
+    this.selectedFiles = fileList
   }
 
   setUserStudent = () => {
@@ -71,25 +83,31 @@ export class MyCardComponent implements OnInit {
   onSubmit = async () => {
     this.submitted = true;
 
-    let user = {
-      ...this.user,
-      tel: this.f.tel.value,
-      birthdate: this.f.birthdate.value,
-      documents: this.selectedFiles,
-      student: this.f.student.value
-    }
-
     if (!this.getMyCardForm.invalid) {
-      try {
-        let res = await Axios.post("http://localhost:3009/card/request", user);
+      this.request = {
+        ...this.user,
+        tel: this.f.tel.value,
+        birthdate: this.f.birthdate.value,
+        idPhoto: this.selectedFiles.idPhoto,
+        idCard: this.selectedFiles.idCard,
+        student: this.f.student.value,
+        studentCard: this.selectedFiles.studentCard
+      };
+    }
+  }
 
-        if (res.status === 201) {
-          console.log('Demande créée !')
-        }
+  onConfirm = async () => {
+    try {
+      this.formValidation = true
 
-      } catch (err) {
-        console.error(err.message);
-      }
+      let res = await Axios.post("http://localhost:3009/card/request", this.request);
+
+      if (res.status !== 201) throw new Error()
+      this.validatedRequest = true;
+
+    } catch (err) {
+      this.validatedRequest = false;
+      console.error(err.message);
     }
   }
 
