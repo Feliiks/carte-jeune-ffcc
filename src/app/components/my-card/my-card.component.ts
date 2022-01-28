@@ -24,12 +24,13 @@ export class MyCardComponent implements OnInit {
   // Données récupérées de la session de l'user
   user: any = null;
   sessionCookie: boolean = this.cookieService.check("sessionToken");
+  // QR Code
+  public youthCardQRCode: string = null;
 
-  constructor(
+  constructor (
     public router: Router,
-    private cookieService: CookieService
-  ) {
-  }
+    private cookieService: CookieService,
+  ) {}
 
   async ngOnInit(): Promise<any> {
     this.getMyCardForm = new FormGroup({
@@ -54,8 +55,12 @@ export class MyCardComponent implements OnInit {
       if (!this.sessionCookie) throw new Error();
       let sessionToken = this.cookieService.get("sessionToken");
 
+      // On récupère la session
       this.user = await getUserSession(sessionToken);
+
+      // On récupère les données de la carte jeune et on insère la data dans le qrcode
       this.user.youthCard = await getYouthCardFromUser(this.user.id);
+      this.youthCardQRCode = this.user.uid
     } catch {
       await this.router.navigate(["/connexion"]);
     }

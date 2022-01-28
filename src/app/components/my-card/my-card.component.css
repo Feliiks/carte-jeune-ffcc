@@ -182,16 +182,16 @@ label[for='student'] {
 
 .edit-my-card-container .container .middle-panel .youth-card-content .identifiers {
   position: relative;
-  width: 25%; height: 70%;
+  width: 25%; height: 80%;
 
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+  justify-content: center;
   align-items: center;
 }
 
 .edit-my-card-container .container .middle-panel .youth-card-content .identifiers img {
-  transform: scale(5.5, 5.5);
+  max-width: 70%;
 }
 
 .edit-my-card-container .container .middle-panel .information-panel {

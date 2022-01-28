@@ -24,14 +24,11 @@ model users {
   is_email_verified Boolean   @default(false)
 }
 
-model youth_card_requests {
-  id      Int @id @default(autoincrement())
-  user_id Int @unique(map: "youth_card_requests_user_id_uindex")
-}
-
 model youth_cards {
-  id              Int      @id @default(autoincrement())
-  user_id         Int      @unique(map: "youth_cards_user_id_uindex")
-  issue_date      DateTime @db.Date
-  expiration_date DateTime @db.Date
+  id              Int       @id @default(autoincrement())
+  user_id         Int       @unique(map: "youth_cards_user_id_uindex")
+  issue_date      DateTime? @db.Date
+  expiration_date DateTime? @db.Date
+  request_date    DateTime  @default(now()) @db.Timestamp(0)
+  validated       Boolean   @default(false)
 }

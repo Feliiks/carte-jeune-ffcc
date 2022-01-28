@@ -197,8 +197,8 @@
         <div class="data">
           <span>Nom: {{user.lastname}}</span>
           <span>Prénom: {{user.firstname}}</span>
-          <span>Adresse mail: {{user.post_code}}</span>
-          <span>Téléphone: {{user.city}}</span>
+          <span>Adresse mail: {{user.email}}</span>
+          <span>Téléphone: {{user.tel}}</span>
           <span>Date de naissance: {{getDate(user.birthdate)}}</span>
           <span>Etudiant: {{user.student === true ? "Oui" : "Non"}}</span>
           <span>Validée le: {{getDate(user.youthCard.issue_date)}}</span>
@@ -207,7 +207,7 @@
         <div class="identifiers">
           <img alt="photo" src="./assets/photo-identite.jpg">
           <br><br>
-          <img alt="QR Code" src="./assets/qrcode.png">
+          <qrcode [qrdata]="youthCardQRCode" [width]="150" [errorCorrectionLevel]="'M'"></qrcode>
         </div>
       </div>
       <div class="information-panel">

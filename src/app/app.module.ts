@@ -1,20 +1,21 @@
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-import { CookieService } from 'ngx-cookie-service';
+import {NgModule} from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
+import {CookieService} from 'ngx-cookie-service';
+import {QRCodeModule} from "angularx-qrcode";
 
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { RegisterComponent } from './components/register/register.component';
-import { LoginComponent } from './components/login/login.component';
-import { HomeComponent } from './components/home/home.component';
-import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { PasswordRecoveryComponent } from './components/password-recovery/password-recovery.component';
-import { EmailverificationComponent } from './components/emailverification/emailverification.component';
-import { AccountconfirmationComponent } from './components/accountconfirmation/accountconfirmation.component';
+import {AppRoutingModule} from './app-routing.module';
+import {AppComponent} from './app.component';
+import {RegisterComponent} from './components/register/register.component';
+import {LoginComponent} from './components/login/login.component';
+import {HomeComponent} from './components/home/home.component';
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {PasswordRecoveryComponent} from './components/password-recovery/password-recovery.component';
+import {EmailverificationComponent} from './components/emailverification/emailverification.component';
+import {AccountconfirmationComponent} from './components/accountconfirmation/accountconfirmation.component';
 import {UsernameRecoveryComponent} from "./components/username-recovery/username-recovery.component";
-import { NewpasswordComponent } from './components/newpassword/newpassword.component';
-import { PasswordEmailverifyComponent } from './components/password-emailverify/password-emailverify.component';
-import { MyCardComponent } from './components/my-card/my-card.component';
+import {NewpasswordComponent} from './components/newpassword/newpassword.component';
+import {PasswordEmailverifyComponent} from './components/password-emailverify/password-emailverify.component';
+import {MyCardComponent} from './components/my-card/my-card.component';
 
 
 @NgModule({
@@ -31,14 +32,16 @@ import { MyCardComponent } from './components/my-card/my-card.component';
     PasswordEmailverifyComponent,
     MyCardComponent
   ],
-    imports: [
-        BrowserModule,
-        AppRoutingModule,
-        FormsModule,
-        ReactiveFormsModule
-    ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    FormsModule,
+    ReactiveFormsModule,
+    QRCodeModule
+  ],
   providers:
     [CookieService],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

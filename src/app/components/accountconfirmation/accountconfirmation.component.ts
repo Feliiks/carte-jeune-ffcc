@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import Axios from "axios";
 
 @Component({
@@ -11,6 +11,7 @@ export class AccountconfirmationComponent implements OnInit {
   valid: boolean
 
   constructor(
+    public router: Router,
     private route: ActivatedRoute
   ) { }
 

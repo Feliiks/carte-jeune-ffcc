@@ -342,7 +342,7 @@ app.post('/card/request', async (req, res) => {
 
   try {
     // On vérifie si une demande n'existe pas déjà
-    let getRequest = await prisma.youth_card_requests.findMany({
+    let getRequest = await prisma.youth_cards.findMany({
       where: {
         user_id: id
       }
@@ -352,13 +352,13 @@ app.post('/card/request', async (req, res) => {
 
     // On créer une nouvelle demande de carte jeune qu'on lie à l'user
     // il reste encore à stocker les différents documents (idPhoto,..)
-    await prisma.youth_card_requests.create({
+    await prisma.youth_cards.create({
       data: {
         user_id: id
       }
     })
 
-    // Si pas de demande existante, met à jours l'user avec les nouvelles informations
+    // Si pas de demande existante, on met à jours l'user avec les nouvelles informations
     await prisma.users.update({
       where: {
         id: id
@@ -383,7 +383,8 @@ app.post('/user/card/get', async (req, res) => {
   try {
     let result = await prisma.youth_cards.findMany({
       where: {
-        user_id: userId
+        user_id: userId,
+        validated: true
       }
     })
 
@@ -398,6 +399,7 @@ app.post('/user/session/get', async (req, res) => {
   let { sessionToken } = req.body
 
   try {
+    // On récupère le payload comportant l'uid
     let check = await jwt.verify(sessionToken, process.env.TOKEN_KEY)
 
     let user = await prisma.users.findMany({
